@@ -12,7 +12,11 @@ namespace Scripts.UnitLogic
 
         [Space]
 
+        [SerializeField] private int _health;
+
         [SerializeField] private Cell _cell;
+
+        private int _temp;
 
         [Header("Gizmos")]
         [SerializeField] private Color _moveColor = Color.white;
@@ -33,6 +37,18 @@ namespace Scripts.UnitLogic
         public GameObject GameObject => _gameObject;
 
         public Transform Transform => transform;
+
+        public int Health
+        {
+            get { return _health; }
+            set { _health = value; }
+        }
+
+        
+        public Unit(int initialHealth)
+        {
+            _health = initialHealth;
+        }
 
         private void OnDrawGizmosSelected() 
         {
@@ -70,12 +86,14 @@ namespace Scripts.UnitLogic
 
         public void Initialize(Cell cell)
         {
-            _cell.SetUnit();
+            int setResult = cell.SetUnit(this);
+
+            if (setResult == 0)
+            {
+                _cell.SetUnit(); 
+            }
 
             _transform.position = cell.Transform.position;
-
-            cell.SetUnit(this);
-
             _cell = cell;
         }
 
