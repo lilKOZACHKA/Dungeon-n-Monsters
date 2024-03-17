@@ -86,15 +86,12 @@ namespace Scripts.UnitLogic
 
         public void Initialize(Cell cell)
         {
-            int setResult = cell.SetUnit(this);
-
-            if (setResult == 0)
+            if ((cell.SetUnit(this)) == 0)
             {
                 _cell.SetUnit(); 
+                _transform.position = cell.Transform.position;
+                _cell = cell;
             }
-
-            _transform.position = cell.Transform.position;
-            _cell = cell;
         }
 
         public void FindCell()
