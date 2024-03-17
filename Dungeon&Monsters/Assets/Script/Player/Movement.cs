@@ -1,54 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
-    private const double V = 1.03;
-    private Rigidbody2D rb;
-    public float normalSpeed = 2f;
-    public float sprintSpeed = 4f;
-    public float size_x = (float)V;
-    private Vector2 moveVector;
+    public float moveSpeed = 5f; // Скорость передвижения игрока
+    public float jumpForce = 10f; // Сила прыжка
+    public Transform groundCheck; // Точка для проверки нахождения на земле
+    public LayerMask groundLayer; // Слой земли
+    public float groundCheckRadius = 0.2f; // Радиус проверки нахождения на земле
 
-    void Awake()
+    private Rigidbody2D rb;
+    private bool isGrounded = false;
+    private bool isFacingRight = true;
+
+    void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>(); // Получаем компонент Rigidbody2D
     }
 
     void Update()
     {
-        moveVector.x = Input.GetAxisRaw("Horizontal");
-        moveVector.y = Input.GetAxisRaw("Vertical");
-        moveVector.Normalize();
+        // Проверяем, находится ли игрок на земле
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-        // Check for sprinting (holding down the Shift key)
-        float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : normalSpeed;
+        // Получаем ввод от игрока
+        float moveInput = Input.GetAxis("Horizontal");
 
-        // Apply speed to the movement vector
-        moveVector *= currentSpeed;
-
-        // Flip the sprite if moving to the left
-        if (moveVector.x < 0)
+        // Поворачиваем спрайт игрока
+        if ((moveInput > 0 && !isFacingRight) || (moveInput < 0 && isFacingRight))
         {
-            FlipSprite(true);
+            Flip();
         }
-        else if (moveVector.x > 0)
+
+        // Применяем силу движения
+        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+
+        // Прыжок
+        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
-            FlipSprite(false);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
     }
 
-    void FixedUpdate()
+    // Поворачиваем спрайт игрока
+    void Flip()
     {
-        rb.MovePosition(rb.position + moveVector * Time.fixedDeltaTime);
-    }
-
-    void FlipSprite(bool facingLeft)
-    {
-        // Multiply the local scale by -1 on the X-axis to flip the sprite
-        Vector3 newScale = transform.localScale;
-        newScale.x = facingLeft ? -size_x : size_x;
-        transform.localScale = newScale;
+        isFacingRight = !isFacingRight;
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
     }
 }
