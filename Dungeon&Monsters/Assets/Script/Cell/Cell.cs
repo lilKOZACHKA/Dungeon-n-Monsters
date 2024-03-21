@@ -106,7 +106,7 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
         public int SetUnit(Unit unit = null)
         {
-            if (_unit != null && unit != null && _unit.Health > 0 && unit.Health > 0) // Ataka
+            if (_unit != null && unit != null && _unit.Health > 0 && unit.Health > 0) 
             {
                 if ((_unit.Health -= 1) <= 0)
                 {

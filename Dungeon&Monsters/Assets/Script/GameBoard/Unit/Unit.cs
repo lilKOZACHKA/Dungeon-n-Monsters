@@ -13,10 +13,13 @@ namespace Scripts.UnitLogic
         [Space]
 
         [SerializeField] private int _health;
+        [SerializeField] private int _iniciative;
+
+        [SerializeField] private bool _isActive;
+        [SerializeField] private bool _isFightUnit;
+        [SerializeField] private bool _isEnemy;
 
         [SerializeField] private Cell _cell;
-
-        private int _temp;
 
         [Header("Gizmos")]
         [SerializeField] private Color _moveColor = Color.white;
@@ -44,10 +47,17 @@ namespace Scripts.UnitLogic
             set { _health = value; }
         }
 
-        
-        public Unit(int initialHealth)
+        public int Initiative
+        {
+            get { return _iniciative; }
+            set { _iniciative = value; }
+        }
+
+        public Unit(int initialHealth, bool isFightUnit, bool isEnemy)
         {
             _health = initialHealth;
+            _isFightUnit = isFightUnit;
+            _isEnemy = isEnemy;
         }
 
         private void OnDrawGizmosSelected() 
@@ -92,6 +102,11 @@ namespace Scripts.UnitLogic
                 _transform.position = cell.Transform.position;
                 _cell = cell;
             }
+        }
+
+        public void InitiativeButton(Unit unit)
+        {
+            
         }
 
         public void FindCell()
