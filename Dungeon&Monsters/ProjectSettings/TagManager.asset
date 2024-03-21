@@ -4,16 +4,15 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Hero
-  - Enemy
+  - Item
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Hero
+  - item
   - Water
   - UI
-  - Enemy
+  - ground
   - 
   - 
   - 
