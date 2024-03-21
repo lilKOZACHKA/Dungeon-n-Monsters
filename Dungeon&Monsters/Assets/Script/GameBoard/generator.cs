@@ -70,6 +70,24 @@ public class Map
         MaxY = int.MinValue;
     }
 
+    public string[] ToStringArray()
+    {
+        var trimmedMap = TrimMap();
+        var result = new string[trimmedMap.GetLength(0)];
+
+        for (int y = 0; y < trimmedMap.GetLength(0); y++)
+        {
+            var row = "";
+            for (int x = 0; x < trimmedMap.GetLength(1); x++)
+            {
+                row += trimmedMap[y, x];
+            }
+            result[y] = row;
+        }
+
+        return result;
+    }
+
     private char[,] GenerateMap(int height, int width)
     {
         var newMap = new char[height, width];
@@ -102,7 +120,7 @@ public class Map
             for (int x = 0; x < room.Width; x++)
             {
                 int mapX = startX + x, mapY = startY + y;
-                map[mapY, mapX] = x == 0 || x == room.Width - 1 || y == 0 || y == room.Length - 1 ? '#' : '.';
+                map[mapY, mapX] = x == 0 || x == room.Width - 1 || y == 0 || y == room.Length - 1 ? '#' : '0'; 
             }
         }
 
@@ -110,8 +128,8 @@ public class Map
 
         MinX = Math.Min(MinX, startX - padding);
         MinY = Math.Min(MinY, startY - padding);
-        MaxX = Math.Max(MaxX, startX + room.Width + padding - 1); 
-        MaxY = Math.Max(MaxY, startY + room.Length + padding - 1); 
+        MaxX = Math.Max(MaxX, startX + room.Width + padding - 1);
+        MaxY = Math.Max(MaxY, startY + room.Length + padding - 1);
 
         return true;
     }
