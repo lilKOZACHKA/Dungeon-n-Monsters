@@ -12,6 +12,13 @@ namespace Scripts.UnitLogic
 
         [Space]
 
+        [SerializeField] private int _health;
+        [SerializeField] private int _iniciative;
+
+        [SerializeField] private bool _isActive;
+        [SerializeField] private bool _isFightUnit;
+        [SerializeField] private bool _isEnemy;
+
         [SerializeField] private Cell _cell;
 
         [Header("Gizmos")]
@@ -33,6 +40,25 @@ namespace Scripts.UnitLogic
         public GameObject GameObject => _gameObject;
 
         public Transform Transform => transform;
+
+        public int Health
+        {
+            get { return _health; }
+            set { _health = value; }
+        }
+
+        public int Initiative
+        {
+            get { return _iniciative; }
+            set { _iniciative = value; }
+        }
+
+        public Unit(int initialHealth, bool isFightUnit, bool isEnemy)
+        {
+            _health = initialHealth;
+            _isFightUnit = isFightUnit;
+            _isEnemy = isEnemy;
+        }
 
         private void OnDrawGizmosSelected() 
         {
@@ -70,13 +96,17 @@ namespace Scripts.UnitLogic
 
         public void Initialize(Cell cell)
         {
-            _cell.SetUnit();
+            if ((cell.SetUnit(this)) == 0)
+            {
+                _cell.SetUnit(); 
+                _transform.position = cell.Transform.position;
+                _cell = cell;
+            }
+        }
 
-            _transform.position = cell.Transform.position;
-
-            cell.SetUnit(this);
-
-            _cell = cell;
+        public void InitiativeButton(Unit unit)
+        {
+            
         }
 
         public void FindCell()
