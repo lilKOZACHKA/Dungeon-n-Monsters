@@ -41,6 +41,15 @@ namespace Scripts.UnitLogic
 
         public Transform Transform => transform;
 
+        public Vector2Int Position
+        {
+            get
+            {
+                // Возвращаем позицию юнита на основе его текущего расположения
+                return new Vector2Int((int)_transform.position.x, (int)_transform.position.y);
+            }
+        }
+
         public int Health
         {
             get { return _health; }

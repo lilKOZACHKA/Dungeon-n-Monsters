@@ -77,6 +77,21 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             _stateMachine.Initialize(_defaultState);
         }
 
+        public delegate void CellClickedHandler(Cell cell);
+        // Создадим событие для этого делегата
+        public event CellClickedHandler OnCellClicked;
+
+        // Добавим метод для вызова события при клике
+        private void OnMouseDown()
+        {
+            // Проверим, есть ли подписчики на событие клика
+            if (OnCellClicked != null)
+            {
+                // Вызовем событие клика
+                OnCellClicked(this);
+            }
+        }
+
         private void OnValidate()
         {
             if(_gameObject == null)

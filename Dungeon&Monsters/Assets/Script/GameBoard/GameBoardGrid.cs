@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Scripts.CellLogic;
 using Scripts.Factories;
+using Scripts.UnitLogic;
 using UnityEngine;
 
 namespace Scripts.GameBoardLogic
@@ -27,6 +30,8 @@ namespace Scripts.GameBoardLogic
 
         private readonly GameBoardFactory _factory = new();
 
+        public object SelectedUnit { get; internal set; }
+
         [ContextMenu("Create")]
         public void Create()
         {
@@ -45,6 +50,23 @@ namespace Scripts.GameBoardLogic
             }
         }
 
+        public Vector2Int GetUnitPosition(Unit unit)
+        {
+            // Ищем ячейку, содержащую данный юнит
+            Cell cellWithUnit = _cells.FirstOrDefault(cell => cell.HaveUnit && cell.Unit == unit);
+
+            // Если найдена ячейка с юнитом, возвращаем ее позицию
+            if (cellWithUnit != null)
+            {
+                return cellWithUnit.Position;
+            }
+            else
+            {
+                Debug.LogWarning("Unit not found on any cell.");
+                return Vector2Int.zero; // Возвращаем нулевую позицию или другое значение по умолчанию
+            }
+        }
+
         private void GenerateMap()
         {
             Map gameMap = new Map(_mapWidth, _mapHeight);
@@ -53,5 +75,23 @@ namespace Scripts.GameBoardLogic
 
             _map = gameMap.ToStringArray();
         }
+
+        public List<Cell> GetAllCells()
+        {
+            return _cells;
+        }
+        private Cell _selectedCell;
+
+    // Метод для установки выделенной ячейки
+    public void SetSelectedCell(Cell cell)
+    {
+        _selectedCell = cell;
+    }
+
+    // Метод для получения текущей выделенной ячейки
+    public Cell GetSelectedCell()
+    {
+        return _selectedCell;
+    }
     }
 }
