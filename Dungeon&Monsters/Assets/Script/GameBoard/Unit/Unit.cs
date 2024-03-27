@@ -53,9 +53,10 @@ namespace Scripts.UnitLogic
             set { _iniciative = value; }
         }
 
-        public Unit(int initialHealth, bool isFightUnit, bool isEnemy)
+        public Unit(int initialHealth, bool isFightUnit, bool isEnemy, int initiative)
         {
             _health = initialHealth;
+            _iniciative = initiative;
             _isFightUnit = isFightUnit;
             _isEnemy = isEnemy;
         }
@@ -104,11 +105,6 @@ namespace Scripts.UnitLogic
             }
         }
 
-        public void InitiativeButton(Unit unit)
-        {
-            
-        }
-
         public void FindCell()
         {
             Collider2D[] colliders = Physics2D.OverlapBoxAll(_transform.position, _transform.localScale, 0);
@@ -124,6 +120,11 @@ namespace Scripts.UnitLogic
 
                 _cell = cell;
             }
+        }
+
+        public void DoTurn()
+        {
+            Debug.Log("Ходит юнит с инициативой " + Initiative);
         }
     }
 }
