@@ -3,46 +3,56 @@ using Scripts.UnitLogic;
 using System.Linq;
 using UnityEngine;
 
-public class Initiative : MonoBehaviour
+namespace Scripts.UnitLogic
 {
-    public List<Unit> units;
-    private Queue<Unit> turnQueue;
-    private Unit currentUnit;
-
-    private void Start()
+    public class Initiative : MonoBehaviour
     {
-        foreach (Unit unit in units)
+        public List<Unit> units;
+        private Queue<Unit> turnQueue;
+        private Unit currentUnit;
+
+        private void Start()
         {
-            unit.Initiative = Random.Range(1, 20);
-            unit.gameObject.SetActive(false);
+            foreach (Unit unit in units)
+            {
+                unit.Initiative = Random.Range(1, 20);
+                unit.gameObject.SetActive(false);
+            }
+
+            units = units.OrderByDescending(unit => unit.Initiative).ToList();
+
+            turnQueue = new Queue<Unit>(units);
+
+            StartNextTurn();
         }
 
-        units = units.OrderByDescending(unit => unit.Initiative).ToList();
-
-        turnQueue = new Queue<Unit>(units);
-
-        StartNextTurn();
-    }
-
-    private void StartNextTurn()
-    {
-        if (turnQueue.Count > 0)
+        private void StartNextTurn()
         {
-            currentUnit = turnQueue.Dequeue();
+            if (turnQueue.Count > 0)
+            {
+                currentUnit = turnQueue.Dequeue();
 
-            currentUnit.gameObject.SetActive(true);
+                currentUnit.gameObject.SetActive(true);
 
-            currentUnit.DoTurn();
+                currentUnit.DoTurn(currentUnit);
+
+                return;
+            }
+            else
+            {
+                turnQueue = new Queue<Unit>(units);
+                StartNextTurn();
+            }
         }
-    }
 
-    public void EndRound()
-    {
-        foreach(Unit unit in units)
+        public void EndRound()
         {
-            unit.gameObject.SetActive(false);
+            foreach (Unit unit in units)
+            {
+                unit.gameObject.SetActive(false);
+            }
+            StartNextTurn();
         }
-        StartNextTurn();
     }
 }
 

@@ -110,8 +110,6 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             {
                 if ((_unit.Health -= 1) <= 0)
                 {
-                    Destroy(_unit.GameObject);
-
                     unit.Transform.position = _transform.position;
                     _unit = unit;
                     _haveUnit = true;

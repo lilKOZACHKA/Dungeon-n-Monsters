@@ -13,7 +13,7 @@ namespace Scripts.UnitLogic
         [Space]
 
         [SerializeField] private int _health;
-        [SerializeField] private int _iniciative;
+        [SerializeField] private int _initiative;
 
         [SerializeField] private bool _isActive;
         [SerializeField] private bool _isFightUnit;
@@ -49,14 +49,14 @@ namespace Scripts.UnitLogic
 
         public int Initiative
         {
-            get { return _iniciative; }
-            set { _iniciative = value; }
+            get { return _initiative; }
+            set { _initiative = value; }
         }
 
         public Unit(int initialHealth, bool isFightUnit, bool isEnemy, int initiative)
         {
             _health = initialHealth;
-            _iniciative = initiative;
+            _initiative = initiative;
             _isFightUnit = isFightUnit;
             _isEnemy = isEnemy;
         }
@@ -122,9 +122,9 @@ namespace Scripts.UnitLogic
             }
         }
 
-        public void DoTurn()
+        public void DoTurn(Unit currentUnit)
         {
-            Debug.Log("Ходит юнит с инициативой " + Initiative);
+            Debug.Log("Ход персонажа c инициативой - " + currentUnit.Initiative); 
         }
     }
 }
