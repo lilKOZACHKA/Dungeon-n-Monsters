@@ -155,5 +155,4 @@ _ReSharper*/
 [Bb]uild/
 
 #Subversion files
-.svn 
-*.meta
+.svn
