@@ -9,11 +9,14 @@ public class Pickup : MonoBehaviour
 
     private void Start() 
     {
-        inventory = GameObject.FindGameObjectWithTag("GameController").GetComponent<Inventory>();
+        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
     }
-    void OnMouseDown()
+
+    private void OnTriggerEnter2D(Collider2D other) 
     {
-        for (int i = 0; i < inventory.slots.Length; i++)
+        if (other.CompareTag("Player")) 
+        {
+            for (int i = 0; i < inventory.slots.Length; i++)
             {
                 if(inventory.isFull[i] == false)
                 {
@@ -23,5 +26,6 @@ public class Pickup : MonoBehaviour
                     break;
                 }
             }
+        }
     }
 }
