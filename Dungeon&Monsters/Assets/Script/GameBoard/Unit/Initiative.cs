@@ -16,6 +16,7 @@ namespace Scripts.UnitLogic
             foreach (Unit unit in units)
             {
                 unit.Initiative = Random.Range(1, 20);
+                unit.IsCombat = true;
                 unit.gameObject.SetActive(false);
             }
 

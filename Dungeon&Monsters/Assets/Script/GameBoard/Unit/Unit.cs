@@ -15,9 +15,8 @@ namespace Scripts.UnitLogic
         [SerializeField] private int _health;
         [SerializeField] private int _initiative;
 
-        [SerializeField] private bool _isActive;
-        [SerializeField] private bool _isFightUnit;
-        [SerializeField] private bool _isEnemy;
+        [SerializeField] private bool _isCombat = false;
+        [SerializeField] private bool _isUnion;
 
         [SerializeField] private Cell _cell;
 
@@ -53,45 +52,86 @@ namespace Scripts.UnitLogic
             set { _initiative = value; }
         }
 
-        public Unit(int initialHealth, bool isFightUnit, bool isEnemy, int initiative)
+        public bool IsCombat
+        {
+            get { return _isCombat; }
+            set { _isCombat = value; }
+        }
+
+        public Unit(int initialHealth, bool isCombat, bool isUnion, int initiative)
         {
             _health = initialHealth;
             _initiative = initiative;
-            _isFightUnit = isFightUnit;
-            _isEnemy = isEnemy;
+            _isCombat = isCombat;
+            _isUnion = isUnion;
         }
 
         private void OnDrawGizmosSelected() 
         {
             if(_moves == null || _attackMoves == null) return;
 
-            foreach (Vector2 move in _moves)
+            if ()
             {
-                Vector2 position = move * _transform.localScale * _spacing + (Vector2)_transform.localPosition;
-
-                if(_attackMoves.Any(attackMove => attackMove == move))
+                foreach (Vector2 move in _moves)
                 {
-                    Gizmos.color = _universalColor;
+                    Vector2 position = move * _transform.localScale * _spacing + (Vector2)_transform.localPosition;
 
-                    Gizmos.DrawWireCube(position, _transform.localScale);
+                    if (_attackMoves.Any(attackMove => attackMove == move))
+                    {
+                        Gizmos.color = _universalColor;
 
-                    continue;
+                        Gizmos.DrawWireCube(position, _transform.localScale);
+
+                        continue;
+                    }
+
+                    Gizmos.color = _moveColor;
+
+                    Gizmos.DrawCube(position, _transform.localScale);
                 }
 
-                Gizmos.color = _moveColor;
+                Gizmos.color = _attackColor;
 
-                Gizmos.DrawCube(position, _transform.localScale);
+                foreach (Vector2 attackMove in _attackMoves)
+                {
+                    Vector2 position = attackMove * _transform.localScale * _spacing + (Vector2)_transform.localPosition;
+
+                    if (_moves.Any(move => move == attackMove)) continue;
+
+                    Gizmos.DrawCube(position, _transform.localScale);
+                }
             }
 
-            Gizmos.color = _attackColor;
-
-            foreach (Vector2 attackMove in _attackMoves)
+            if (_isCombat == false)
             {
-                Vector2 position = attackMove * _transform.localScale * _spacing + (Vector2)_transform.localPosition;
+                foreach (Vector2 move in _moves)
+                {
+                    Vector2 position = move * _transform.localScale * _spacing + (Vector2)_transform.localPosition;
 
-                if(_moves.Any(move => move == attackMove)) continue;
+                    if (_attackMoves.Any(attackMove => attackMove == move))
+                    {
+                        Gizmos.color = _universalColor;
 
-                Gizmos.DrawCube(position, _transform.localScale);
+                        Gizmos.DrawWireCube(position, _transform.localScale);
+
+                        continue;
+                    }
+
+                    Gizmos.color = _moveColor;
+
+                    Gizmos.DrawCube(position, _transform.localScale);
+                }
+
+                Gizmos.color = _attackColor;
+
+                foreach (Vector2 attackMove in _attackMoves)
+                {
+                    Vector2 position = attackMove * _transform.localScale * _spacing + (Vector2)_transform.localPosition;
+
+                    if (_moves.Any(move => move == attackMove)) continue;
+
+                    Gizmos.DrawCube(position, _transform.localScale);
+                }
             }
         }
 
