@@ -12,11 +12,12 @@ namespace Scripts.UnitLogic
 
         [Space]
 
+        [SerializeField] private int _id;
         [SerializeField] private int _health;
         [SerializeField] private int _initiative;
 
         [SerializeField] private bool _isCombat = false;
-        [SerializeField] private bool _isUnion;
+        [SerializeField] private bool _isUnion = false;
 
         [SerializeField] private Cell _cell;
 
@@ -40,6 +41,12 @@ namespace Scripts.UnitLogic
 
         public Transform Transform => transform;
 
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
         public int Health
         {
             get { return _health; }
@@ -58,49 +65,18 @@ namespace Scripts.UnitLogic
             set { _isCombat = value; }
         }
 
-        public Unit(int initialHealth, bool isCombat, bool isUnion, int initiative)
+        public Unit(int initialHealth, bool isCombat, bool isUnion, int initiative, int id)
         {
             _health = initialHealth;
             _initiative = initiative;
             _isCombat = isCombat;
             _isUnion = isUnion;
+            _id = id;
         }
 
         private void OnDrawGizmosSelected() 
         {
             if(_moves == null || _attackMoves == null) return;
-
-            if ()
-            {
-                foreach (Vector2 move in _moves)
-                {
-                    Vector2 position = move * _transform.localScale * _spacing + (Vector2)_transform.localPosition;
-
-                    if (_attackMoves.Any(attackMove => attackMove == move))
-                    {
-                        Gizmos.color = _universalColor;
-
-                        Gizmos.DrawWireCube(position, _transform.localScale);
-
-                        continue;
-                    }
-
-                    Gizmos.color = _moveColor;
-
-                    Gizmos.DrawCube(position, _transform.localScale);
-                }
-
-                Gizmos.color = _attackColor;
-
-                foreach (Vector2 attackMove in _attackMoves)
-                {
-                    Vector2 position = attackMove * _transform.localScale * _spacing + (Vector2)_transform.localPosition;
-
-                    if (_moves.Any(move => move == attackMove)) continue;
-
-                    Gizmos.DrawCube(position, _transform.localScale);
-                }
-            }
 
             if (_isCombat == false)
             {
@@ -164,6 +140,9 @@ namespace Scripts.UnitLogic
 
         public void DoTurn(Unit currentUnit)
         {
+            CombatCamera camera = GameObject.Find("CombatCamera").GetComponent<CombatCamera>();
+            camera.SelectUnit(currentUnit._id);
+
             Debug.Log("Ход персонажа c инициативой - " + currentUnit.Initiative); 
         }
     }
