@@ -298,6 +298,30 @@ public class Map
         }
     }
 
+    public void PlaceTraps(int trapCount)
+{
+    foreach (var roomInfo in Rooms)
+    {
+        var (position, room) = roomInfo;
+        var (startX, startY) = position;
+
+        HashSet<Tuple<int, int>> placedTraps = new HashSet<Tuple<int, int>>();
+
+        for (int i = 0; i < trapCount; i++)
+        {
+            int trapX, trapY;
+            do
+            {
+                trapX = random.Next(startX + 1, startX + room.Width - 1);
+                trapY = random.Next(startY + 1, startY + room.Length - 1);
+            } while (placedTraps.Contains(Tuple.Create(trapX, trapY)) || map[trapY, trapX] != '0'); // Ensure traps are placed on empty spots only
+
+            map[trapY, trapX] = 'T'; // 'T' represents a trap
+            placedTraps.Add(Tuple.Create(trapX, trapY));
+        }
+    }
+}
+
 }
 
 
@@ -312,6 +336,7 @@ public class Program
         
         gameMap.GenerateConnectedRooms(nRooms, minRoomSize, maxRoomSize, 1); 
         gameMap.PlaceDoors(1);
+        gameMap.PlaceTraps(5);
 
         Console.WriteLine(gameMap); 
 

@@ -8,11 +8,15 @@ namespace Scripts.GameBoardLogic
     public class GameBoardGrid : MonoBehaviour
     {
         [Header("Map Generation Parameters")]
-        [SerializeField] private int _mapWidth = 50;
+        [SerializeField] private int _mapWidth = 100;
         [SerializeField] private int _mapHeight = 100;
-        [SerializeField] private int _numRooms = 10;
-        [SerializeField] private int _minRoomSize = 10;
-        [SerializeField] private int _maxRoomSize = 30;
+        [SerializeField] private int _numRooms = 5;
+        [SerializeField] private int _minRoomSize = 5;
+        [SerializeField] private int _maxRoomSize = 10;
+        [SerializeField] private int _numTraps = 10;
+
+        [SerializeField] private int _minTrapDamage = 1;
+        [SerializeField] private int _maxTrapDamage = 5;
 
         private string[] _map;
 
@@ -50,8 +54,11 @@ namespace Scripts.GameBoardLogic
             Map gameMap = new Map(_mapWidth, _mapHeight);
             gameMap.GenerateConnectedRooms(_numRooms, _minRoomSize, _maxRoomSize, 1);
             gameMap.PlaceDoors(1);
+            gameMap.PlaceTraps(_numTraps);
 
             _map = gameMap.ToStringArray();
         }
+
+        
     }
 }

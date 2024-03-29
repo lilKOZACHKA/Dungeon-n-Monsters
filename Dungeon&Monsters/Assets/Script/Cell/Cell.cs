@@ -27,10 +27,18 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
         [SerializeField] private bool _haveUnit;
 
+        [SerializeField] private bool _isWalkable = true;
+
         [Header("Components")]
         [SerializeField] private GameObject _gameObject;
         [SerializeField] private Transform _transform;
         
+
+        public bool IsWalkable
+        {
+            get => _isWalkable;
+            set => _isWalkable = value;
+        }
 
 
         public IState CurrentState => _stateMachine.CurrentState;
@@ -62,7 +70,7 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         public DefaultState DefaultState => _defaultState;
         public SelectState SelectState => _selectState;
         public bool PointerEnter => _pointerEnter;
-
+        
         private void Awake() 
         {
             _stateMachine = new();
