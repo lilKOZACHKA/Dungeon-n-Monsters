@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour
     private bool inventoryOn;
 private void Start() 
 {
-    inventoryOn = false;
+    inventoryOn = true;
 }
 public void Chest(){
     if(inventoryOn == false) {
