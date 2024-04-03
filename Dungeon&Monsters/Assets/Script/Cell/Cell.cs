@@ -104,9 +104,11 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             PointerChanged?.Invoke(_pointerEnter, this);
         }
 
-        public int SetUnit(Unit unit = null)
-        {
-            if (_unit != null && unit != null && _unit.Health > 0 && unit.Health > 0) 
+        public int SetUnit(Unit unit)
+        {   
+           if(_unit != null && unit == null && unit.IsActive != true && _unit.IsActive != true) { return 0; }
+
+            if (_unit != null && unit != null && _unit.Health > 0 && unit.Health > 0)
             {
                 if ((_unit.Health -= 1) <= 0)
                 {
@@ -119,22 +121,25 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
                 return 1;
             }
 
-            if (unit == null)
-            {
-                _unit = null;
+            unit.Transform.position = _transform.position;
 
-                _haveUnit = false;
-            }
-            else
-            {
-                unit.Transform.position = _transform.position;
+            _unit = unit;
 
-                _unit = unit;
+            _haveUnit = true;
 
-                _haveUnit = true;
-            }
             return 0;
         }
+
+        public int SetUnit()
+        {
+            _unit = null;
+
+            _haveUnit = false;
+
+            return 0;
+        }
+
+
         public void SetDefault()
         {
             _stateMachine.ChangeState(_defaultState);

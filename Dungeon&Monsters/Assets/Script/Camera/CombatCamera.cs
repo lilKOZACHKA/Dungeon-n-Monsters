@@ -6,7 +6,7 @@ namespace Scripts.UnitLogic
 {
     public class CombatCamera : MonoBehaviour
     {
-        public Vector3 offset = new Vector3(0, 2, -10);
+        public Vector3 offset = new Vector3(0, 0, -5);
         public float smoothTime = 0.25f;
         private Vector3 currentVelocity;
 

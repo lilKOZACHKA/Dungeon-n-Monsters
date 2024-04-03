@@ -5,7 +5,6 @@ using Zenject;
 
 namespace Scripts.Factories
 {
-
     public class GameBoardFactory : IFactory<Cell, Vector2Int, float, Transform, List<Cell>>
     {
         public List<Cell> Create(Cell prefab, Vector2Int size, float spacing, Transform root)

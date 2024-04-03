@@ -18,6 +18,7 @@ namespace Scripts.UnitLogic
 
         [SerializeField] private bool _isCombat = false;
         [SerializeField] private bool _isUnion = false;
+        [SerializeField] private bool _isActive = false;
 
         [SerializeField] private Cell _cell;
 
@@ -65,49 +66,53 @@ namespace Scripts.UnitLogic
             set { _isCombat = value; }
         }
 
-        public Unit(int initialHealth, bool isCombat, bool isUnion, int initiative, int id)
+        public bool IsActive
+        {
+            get { return _isActive; }
+            set { _isActive = value; }
+        }
+
+        public Unit(int initialHealth, bool isCombat, bool isUnion, bool isActive, int initiative, int id)
         {
             _health = initialHealth;
             _initiative = initiative;
             _isCombat = isCombat;
             _isUnion = isUnion;
             _id = id;
+            _isActive = isActive;
         }
 
         private void OnDrawGizmosSelected() 
         {
             if(_moves == null || _attackMoves == null) return;
-
-            if (_isCombat == false)
+            
+            foreach (Vector2 move in _moves)
             {
-                foreach (Vector2 move in _moves)
+                Vector2 position = move * _transform.localScale * _spacing + (Vector2)_transform.localPosition;
+
+                if (_attackMoves.Any(attackMove => attackMove == move))
                 {
-                    Vector2 position = move * _transform.localScale * _spacing + (Vector2)_transform.localPosition;
+                    Gizmos.color = _universalColor;
 
-                    if (_attackMoves.Any(attackMove => attackMove == move))
-                    {
-                        Gizmos.color = _universalColor;
+                    Gizmos.DrawWireCube(position, _transform.localScale);
 
-                        Gizmos.DrawWireCube(position, _transform.localScale);
-
-                        continue;
-                    }
-
-                    Gizmos.color = _moveColor;
-
-                    Gizmos.DrawCube(position, _transform.localScale);
+                    continue;
                 }
 
-                Gizmos.color = _attackColor;
+                Gizmos.color = _moveColor;
 
-                foreach (Vector2 attackMove in _attackMoves)
-                {
-                    Vector2 position = attackMove * _transform.localScale * _spacing + (Vector2)_transform.localPosition;
+                Gizmos.DrawCube(position, _transform.localScale);
+            }
 
-                    if (_moves.Any(move => move == attackMove)) continue;
+            Gizmos.color = _attackColor;
 
-                    Gizmos.DrawCube(position, _transform.localScale);
-                }
+            foreach (Vector2 attackMove in _attackMoves)
+            {
+                Vector2 position = attackMove * _transform.localScale * _spacing + (Vector2)_transform.localPosition;
+
+                if (_moves.Any(move => move == attackMove)) continue;
+
+                Gizmos.DrawCube(position, _transform.localScale);
             }
         }
 
@@ -140,8 +145,8 @@ namespace Scripts.UnitLogic
 
         public void DoTurn(Unit currentUnit)
         {
-            CombatCamera camera = GameObject.Find("CombatCamera").GetComponent<CombatCamera>();
-            camera.SelectUnit(currentUnit._id);
+            //CombatCamera camera = GameObject.Find("CombatCamera").GetComponent<CombatCamera>();
+            //camera.SelectUnit(currentUnit._id);
 
             Debug.Log("Ход персонажа c инициативой - " + currentUnit.Initiative); 
         }

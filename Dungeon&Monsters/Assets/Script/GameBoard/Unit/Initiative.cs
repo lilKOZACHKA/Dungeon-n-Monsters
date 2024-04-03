@@ -16,8 +16,7 @@ namespace Scripts.UnitLogic
             foreach (Unit unit in units)
             {
                 unit.Initiative = Random.Range(1, 20);
-                unit.IsCombat = true;
-                unit.gameObject.SetActive(false);
+                unit.IsActive = false;
             }
 
             units = units.OrderByDescending(unit => unit.Initiative).ToList();
@@ -33,7 +32,7 @@ namespace Scripts.UnitLogic
             {
                 currentUnit = turnQueue.Dequeue();
 
-                currentUnit.gameObject.SetActive(true);
+                currentUnit.IsActive = true;
 
                 currentUnit.DoTurn(currentUnit);
 
@@ -50,7 +49,7 @@ namespace Scripts.UnitLogic
         {
             foreach (Unit unit in units)
             {
-                unit.gameObject.SetActive(false);
+                unit.IsActive = false;
             }
             StartNextTurn();
         }
