@@ -6291,7 +6291,6 @@ GameObject:
   - component: {fileID: 305740643}
   - component: {fileID: 305740642}
   - component: {fileID: 305740645}
-  - component: {fileID: 305740646}
   m_Layer: 0
   m_Name: CombatCamera
   m_TagString: MainCamera
@@ -6389,21 +6388,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 1
---- !u!114 &305740646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 305740641}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75d849698db92a44ab8df1221deece5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offset: {x: 0, y: 0, z: -5}
-  smoothTime: 0.25
-  units: []
 --- !u!1 &312385096
 GameObject:
   m_ObjectHideFlags: 0
@@ -7137,6 +7121,7 @@ MonoBehaviour:
   _initiative: 0
   _isCombat: 0
   _isUnion: 0
+  _isActive: 0
   _cell: {fileID: 2122304957}
   _moveColor: {r: 0.37434664, g: 0.97735846, b: 0.44731557, a: 1}
   _attackColor: {r: 0.90943396, g: 0.27833867, b: 0.19046637, a: 1}
@@ -13192,6 +13177,7 @@ MonoBehaviour:
   _initiative: 0
   _isCombat: 0
   _isUnion: 0
+  _isActive: 0
   _cell: {fileID: 939172192}
   _moveColor: {r: 0.37434664, g: 0.97735846, b: 0.44731557, a: 1}
   _attackColor: {r: 0.90943396, g: 0.27833867, b: 0.19046637, a: 1}
@@ -20614,9 +20600,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1080623789}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2672b2c9cc988647aefab26c503d039, type: 3}
+  m_Script: {fileID: 11500000, guid: 6095e22b09522bd42921669210677dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  units:
+  - {fileID: 1990065633}
+  - {fileID: 1758319006}
+  - {fileID: 651902710}
+  - {fileID: 331090363}
 --- !u!4 &1080623791
 Transform:
   m_ObjectHideFlags: 0
@@ -32377,6 +32368,7 @@ MonoBehaviour:
   _initiative: 0
   _isCombat: 0
   _isUnion: 0
+  _isActive: 0
   _cell: {fileID: 958171946}
   _moveColor: {r: 0.37434664, g: 0.97735846, b: 0.44731557, a: 1}
   _attackColor: {r: 0.90943396, g: 0.27833867, b: 0.19046637, a: 1}
@@ -36819,6 +36811,7 @@ MonoBehaviour:
   _initiative: 0
   _isCombat: 0
   _isUnion: 0
+  _isActive: 0
   _cell: {fileID: 116106217}
   _moveColor: {r: 0.37434664, g: 0.97735846, b: 0.44731557, a: 1}
   _attackColor: {r: 0.90943396, g: 0.27833867, b: 0.19046637, a: 1}
