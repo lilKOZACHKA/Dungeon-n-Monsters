@@ -108,8 +108,6 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         {   
            if(_unit != null && unit == null && unit.IsActive != true && _unit.IsActive != true) { return 0; }
 
-           if (_unit == null && unit != null && unit.IsActive != true && _unit.IsActive != true) { return 0; }
-
             if (_unit != null && unit != null && _unit.Health > 0 && unit.Health > 0)
             {
                 if ((_unit.Health -= 1) <= 0)
@@ -128,7 +126,7 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             _unit = unit;
 
             _haveUnit = true;
-            
+
             return 0;
         }
 
