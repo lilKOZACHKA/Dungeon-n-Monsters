@@ -299,28 +299,70 @@ public class Map
     }
 
     public void PlaceTraps(int trapCount)
-{
-    foreach (var roomInfo in Rooms)
     {
-        var (position, room) = roomInfo;
-        var (startX, startY) = position;
-
-        HashSet<Tuple<int, int>> placedTraps = new HashSet<Tuple<int, int>>();
-
-        for (int i = 0; i < trapCount; i++)
+        foreach (var roomInfo in Rooms)
         {
-            int trapX, trapY;
-            do
-            {
-                trapX = random.Next(startX + 1, startX + room.Width - 1);
-                trapY = random.Next(startY + 1, startY + room.Length - 1);
-            } while (placedTraps.Contains(Tuple.Create(trapX, trapY)) || map[trapY, trapX] != '0'); // Ensure traps are placed on empty spots only
+            var (position, room) = roomInfo;
+            var (startX, startY) = position;
 
-            map[trapY, trapX] = 'T'; // 'T' represents a trap
-            placedTraps.Add(Tuple.Create(trapX, trapY));
+            HashSet<Tuple<int, int>> placedTraps = new HashSet<Tuple<int, int>>();
+
+            for (int i = 0; i < trapCount; i++)
+            {
+                int trapX, trapY;
+                do
+                {
+                    trapX = random.Next(startX + 1, startX + room.Width - 1);
+                    trapY = random.Next(startY + 1, startY + room.Length - 1);
+                } while (placedTraps.Contains(Tuple.Create(trapX, trapY)) || map[trapY, trapX] != '0'); 
+
+                map[trapY, trapX] = 'T'; 
+                placedTraps.Add(Tuple.Create(trapX, trapY));
+            }
         }
     }
+
+    public void PlaceEntities(int entityCount)
+    {
+        if (Rooms.Count == 0) return;
+
+        
+        int specialRoomIndex = random.Next(Rooms.Count);
+        for (int i = 0; i < Rooms.Count; i++)
+        {
+            var (position, room) = Rooms[i];
+            var (startX, startY) = position;
+
+            if (i == specialRoomIndex)
+            {
+                
+                int entityX = startX + room.Width / 2;
+                int entityY = startY + room.Length / 2;
+                if (map[entityY, entityX] == '0') 
+                {
+                    map[entityY, entityX] = 'H';
+                }
+            }
+            else
+            {
+                
+                HashSet<Tuple<int, int>> placedEntities = new HashSet<Tuple<int, int>>();
+                for (int j = 0; j < entityCount; j++)
+                {
+                    int entityX, entityY;
+                    do
+                    {
+                        entityX = random.Next(startX + 1, startX + room.Width - 1);
+                        entityY = random.Next(startY + 1, startY + room.Length - 1);
+                    } while (placedEntities.Contains(Tuple.Create(entityX, entityY)) || map[entityY, entityX] != '0'); 
+
+                    map[entityY, entityX] = 'E'; 
+                    placedEntities.Add(Tuple.Create(entityX, entityY));
+                }
+            }
+        }
 }
+
 
 }
 

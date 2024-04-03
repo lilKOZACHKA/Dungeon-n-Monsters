@@ -24,7 +24,8 @@ namespace Scripts.CellLogic
         public void SetColor(Color color)
         {
             if (_spriteRenderer != null)
-            {
+            {  
+                _defaultColor = color;
                 _spriteRenderer.color = color;
             }
         }
