@@ -12,7 +12,6 @@ namespace Scripts.Factories
         private Unit _enemyPrefab;
         private Unit _heroPrefab;
 
-        private const char Wall = '#';
         private const char Door = 'D';
         private const char Interior = '0';
         private const char Trap = 'T';
@@ -75,7 +74,7 @@ namespace Scripts.Factories
 
         private bool IsCellSymbol(char symbol)
         {
-            return symbol == Wall || symbol == Door || symbol == Interior || symbol == Trap || symbol == Enemy || symbol == Hero;
+            return symbol == Door || symbol == Interior || symbol == Trap || symbol == Enemy || symbol == Hero;
         }
 
         private void CreateOutlineCells(string[] map, List<Cell> cells, Cell cellPrefab, float spacing, Transform root)

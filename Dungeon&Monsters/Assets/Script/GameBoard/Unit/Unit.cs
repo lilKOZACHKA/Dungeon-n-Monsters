@@ -70,12 +70,8 @@ namespace Scripts.UnitLogic
 
         public void Initialize(Cell cell)
         {
-            _cell.SetUnit();
-
-            _transform.position = cell.Transform.position;
-
             cell.SetUnit(this);
-
+            _transform.position = cell.Transform.position;
             _cell = cell;
         }
 

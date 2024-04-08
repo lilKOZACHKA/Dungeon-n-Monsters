@@ -25,14 +25,14 @@ public class Room
 
     public override string ToString()
     {
-        var roomRepresentation = new String('#', Width) + Environment.NewLine;
+        var roomRepresentation = new String('0', Width) + Environment.NewLine;
 
         for (int i = 0; i < Length - 2; i++)
         {
-            roomRepresentation += "#" + new String('.', Width - 2) + "#" + Environment.NewLine;
+            roomRepresentation += "0" + new String('.', Width - 2) + "0" + Environment.NewLine;
         }
 
-        roomRepresentation += new String('#', Width);
+        roomRepresentation += new String('0', Width);
         return roomRepresentation;
     }
 }
@@ -120,7 +120,7 @@ public class Map
             for (int x = 0; x < room.Width; x++)
             {
                 int mapX = startX + x, mapY = startY + y;
-                map[mapY, mapX] = x == 0 || x == room.Width - 1 || y == 0 || y == room.Length - 1 ? '#' : '0'; 
+                map[mapY, mapX] = x == 0 || x == room.Width - 1 || y == 0 || y == room.Length - 1 ? '0' : '0'; 
             }
         }
 
@@ -371,14 +371,15 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Map gameMap = new Map(50, 100); 
+        Map gameMap = new Map(100, 100); 
 
-        int nRooms = 10, minRoomSize = 10, maxRoomSize = 30; 
+        int nRooms = 10, minRoomSize = 5, maxRoomSize = 10; 
 
         
         gameMap.GenerateConnectedRooms(nRooms, minRoomSize, maxRoomSize, 1); 
         gameMap.PlaceDoors(1);
         gameMap.PlaceTraps(5);
+        gameMap.PlaceEntities(5);
 
         Console.WriteLine(gameMap); 
 
