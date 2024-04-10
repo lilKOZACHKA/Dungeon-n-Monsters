@@ -145,8 +145,8 @@ namespace Scripts.UnitLogic
 
         public void DoTurn(Unit currentUnit)
         {
-            CombatCamera camera = GameObject.Find("CombatCamera").GetComponent<CombatCamera>();
-            camera.SelectUnit(currentUnit._id);
+            //CombatCamera camera = GameObject.Find("CombatCamera").GetComponent<CombatCamera>();
+            //camera.SelectUnit(currentUnit._id);
 
             Debug.Log("Ход персонажа c инициативой - " + currentUnit.Initiative); 
         }

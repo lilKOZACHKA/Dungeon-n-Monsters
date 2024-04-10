@@ -106,9 +106,7 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
         public int SetUnit(Unit unit)
         {   
-            if(_unit != null && unit == null && unit.IsActive != true && _unit.IsActive != true) { return 0; }
-
-            if (_unit == null && unit != null && unit.IsActive != true && _unit.IsActive != true) { return 0; }
+           if(_unit != null && unit == null && unit.IsActive != true && _unit.IsActive != true) { return 0; }
 
             if (_unit != null && unit != null && _unit.Health > 0 && unit.Health > 0)
             {
