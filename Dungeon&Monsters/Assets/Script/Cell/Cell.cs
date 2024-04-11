@@ -105,40 +105,28 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         }
 
         public int SetUnit(Unit unit)
-        {
-            if (unit != null && unit.IsCombat == true)
+        {   
+           if(_unit != null && unit == null && unit.IsActive != true && _unit.IsActive != true) { return 0; }
+
+            if (_unit != null && unit != null && _unit.Health > 0 && unit.Health > 0)
             {
-                if (unit != null && unit.IsActive != true) { return 1; }
-
-                if (unit == null && unit.IsActive != true) { return 1; }
-
-                if (_unit != null && unit != null && _unit.Health > 0 && unit.Health > 0)
+                if ((_unit.Health -= 1) <= 0)
                 {
-                    if ((_unit.Health -= 1) <= 0)
-                    {
-                        return 0;
-                    }
-                    return 1;
+                    unit.Transform.position = _transform.position;
+                    _unit = unit;
+                    _haveUnit = true;
+
+                    return 0;
                 }
-
-                unit.Transform.position = _transform.position;
-
-                _unit = unit;
-
-                _haveUnit = true;
-
-                return 0;
+                return 1;
             }
-            else if (unit != null)
-            {
-                unit.Transform.position = _transform.position;
 
-                _unit = unit;
+            unit.Transform.position = _transform.position;
 
-                _haveUnit = true;
+            _unit = unit;
 
-                return 0;
-            }
+            _haveUnit = true;
+
             return 0;
         }
 

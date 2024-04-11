@@ -17,7 +17,6 @@ namespace Scripts.UnitLogic
             {
                 unit.Initiative = Random.Range(1, 20);
                 unit.IsActive = false;
-                unit.IsCombat = true;
             }
 
             units = units.OrderByDescending(unit => unit.Initiative).ToList();
@@ -35,14 +34,8 @@ namespace Scripts.UnitLogic
 
                 currentUnit.IsActive = true;
 
-                if (currentUnit.IsUnion == true)
-                {
-                    currentUnit.DoTurn(currentUnit);
-                }
-                else
-                {
-                    currentUnit.BotTurn(currentUnit);
-                }
+                currentUnit.DoTurn(currentUnit);
+
                 return;
             }
             else
