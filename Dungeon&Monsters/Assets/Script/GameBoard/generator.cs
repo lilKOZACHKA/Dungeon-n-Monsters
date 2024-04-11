@@ -159,15 +159,17 @@ public class Map
         return null;
     }
 
-    public void GenerateConnectedRooms(int numRooms, int minRoomSize, int maxRoomSize, int padding = 1)
+    public void GenerateConnectedRooms(int numRooms, int minRoomSize, int maxRoomSize, int padding = 1, int startRoomWidth = 5, int startRoomLength = 5)
     {
         if (numRooms < 1) return;
 
-        var firstRoom = RoomGenerator.GenerateRandomRoom(minRoomSize, maxRoomSize);
+        
+        var firstRoom = new Room(startRoomLength, startRoomWidth);
         int startX = random.Next(0, Width - firstRoom.Width);
         int startY = random.Next(0, Height - firstRoom.Length);
         PlaceRoom(firstRoom, startX, startY, padding);
 
+        
         for (int i = 1; i < numRooms; i++)
         {
             var newRoom = RoomGenerator.GenerateRandomRoom(minRoomSize, maxRoomSize);
@@ -300,70 +302,144 @@ public class Map
 
     public void PlaceTraps(int trapCount)
     {
-        foreach (var roomInfo in Rooms)
+        for (int roomIndex = 0; roomIndex < Rooms.Count; roomIndex++)
         {
-            var (position, room) = roomInfo;
+            if (roomIndex == 0) continue; 
+
+            var (position, room) = Rooms[roomIndex];
             var (startX, startY) = position;
 
             HashSet<Tuple<int, int>> placedTraps = new HashSet<Tuple<int, int>>();
 
             for (int i = 0; i < trapCount; i++)
             {
-                int trapX, trapY;
+                int trapX = startX;
+                int trapY = startY;
+                int attempts = 0;
                 do
                 {
-                    trapX = random.Next(startX + 1, startX + room.Width - 1);
-                    trapY = random.Next(startY + 1, startY + room.Length - 1);
-                } while (placedTraps.Contains(Tuple.Create(trapX, trapY)) || map[trapY, trapX] != '0'); 
+                    if (++attempts > 100) break; 
 
-                map[trapY, trapX] = 'T'; 
-                placedTraps.Add(Tuple.Create(trapX, trapY));
+                    trapX = random.Next(startX, startX + room.Width);
+                    trapY = random.Next(startY, startY + room.Length);
+                } while (placedTraps.Contains(Tuple.Create(trapX, trapY)) || 
+                        map[trapY, trapX] != '0' || 
+                        IsAdjacentToDoor(trapX, trapY));
+
+                if (attempts <= 100)
+                {
+                    map[trapY, trapX] = 'T';
+                    placedTraps.Add(Tuple.Create(trapX, trapY));
+                }
             }
         }
     }
 
+    private bool IsAdjacentToDoor(int x, int y)
+    {
+        int[] dx = {1, -1, 0, 0};
+        int[] dy = {0, 0, 1, -1};
+
+        for (int i = 0; i < 4; i++)
+        {
+            int checkX = x + dx[i];
+            int checkY = y + dy[i];
+            if (checkX >= 0 && checkX < Width && checkY >= 0 && checkY < Height && map[checkY, checkX] == 'D')
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public void PlaceEntities(int entityCount)
     {
-        if (Rooms.Count == 0) return;
-
-        
-        int specialRoomIndex = random.Next(Rooms.Count);
-        for (int i = 0; i < Rooms.Count; i++)
+        for (int roomIndex = 0; roomIndex < Rooms.Count; roomIndex++)
         {
-            var (position, room) = Rooms[i];
+            var (position, room) = Rooms[roomIndex];
             var (startX, startY) = position;
 
-            if (i == specialRoomIndex)
+            if (roomIndex == 0) 
             {
-                
-                int entityX = startX + room.Width / 2;
-                int entityY = startY + room.Length / 2;
-                if (map[entityY, entityX] == '0') 
-                {
-                    map[entityY, entityX] = 'H';
-                }
+                map[startY + room.Length / 2, startX + room.Width / 2] = 'H';
+                continue;
             }
-            else
-            {
-                
-                HashSet<Tuple<int, int>> placedEntities = new HashSet<Tuple<int, int>>();
-                for (int j = 0; j < entityCount; j++)
-                {
-                    int entityX, entityY;
-                    do
-                    {
-                        entityX = random.Next(startX + 1, startX + room.Width - 1);
-                        entityY = random.Next(startY + 1, startY + room.Length - 1);
-                    } while (placedEntities.Contains(Tuple.Create(entityX, entityY)) || map[entityY, entityX] != '0'); 
 
+            HashSet<Tuple<int, int>> placedEntities = new HashSet<Tuple<int, int>>();
+            for (int j = 0; j < entityCount; j++)
+            {
+                int entityX = startX; 
+                int entityY = startY;
+                int attempts = 0;
+                do
+                {
+                    if (++attempts > 100) break; 
+
+                    entityX = random.Next(startX, startX + room.Width);
+                    entityY = random.Next(startY, startY + room.Length);
+                } while (placedEntities.Contains(Tuple.Create(entityX, entityY)) ||
+                        map[entityY, entityX] != '0' ||
+                        IsAdjacentToDoor(entityX, entityY));
+
+                if (attempts <= 100)
+                {
                     map[entityY, entityX] = 'E'; 
                     placedEntities.Add(Tuple.Create(entityX, entityY));
                 }
             }
         }
-}
+    }
 
+    public void PlaceChests(int maxChestsPerRoom)
+    {
+        if (Rooms.Count <= 1 || maxChestsPerRoom <= 0) return;
 
+        for (int i = 1; i < Rooms.Count; i++) 
+        {
+            var (position, room) = Rooms[i];
+            var (startX, startY) = position;
+
+            bool placeAtWalls = random.Next(2) == 0;
+            int chestsToPlace = random.Next(1, maxChestsPerRoom + 1);
+
+            for (int j = 0; j < chestsToPlace; j++)
+            {
+                int chestX = startX; 
+                int chestY = startY;
+                int attempts = 0;
+                do
+                {
+                    if (++attempts > 100) break; 
+
+                    if (!placeAtWalls)
+                    {
+                        int centerX = startX + room.Width / 2;
+                        int centerY = startY + room.Length / 2;
+                        int radius = Math.Min(room.Width, room.Length) / 4;
+
+                        chestX = random.Next(centerX - radius, centerX + radius + 1);
+                        chestY = random.Next(centerY - radius, centerY + radius + 1);
+                    }
+                    else
+                    {
+                        switch (random.Next(4))
+                        {
+                            case 0: chestX = random.Next(startX + 1, startX + room.Width - 1); chestY = startY; break;
+                            case 1: chestX = random.Next(startX + 1, startX + room.Width - 1); chestY = startY + room.Length - 1; break;
+                            case 2: chestX = startX; chestY = random.Next(startY + 1, startY + room.Length - 1); break;
+                            default: chestX = startX + room.Width - 1; chestY = random.Next(startY + 1, startY + room.Length - 1); break;
+                        }
+                    }
+                } while (map[chestY, chestX] != '0' || IsAdjacentToDoor(chestX, chestY));
+
+                if (attempts <= 100)
+                {
+                    map[chestY, chestX] = 'C'; 
+                }
+            }
+        }
+    }
 }
 
 
@@ -378,6 +454,9 @@ public class Program
         
         gameMap.GenerateConnectedRooms(nRooms, minRoomSize, maxRoomSize, 1); 
         gameMap.PlaceDoors(1);
+        
+
+        gameMap.PlaceChests(5);
         gameMap.PlaceTraps(5);
         gameMap.PlaceEntities(5);
 

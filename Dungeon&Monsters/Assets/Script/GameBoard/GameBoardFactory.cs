@@ -11,12 +11,15 @@ namespace Scripts.Factories
     {
         private Unit _enemyPrefab;
         private Unit _heroPrefab;
+        private Chest _chestPrefab;
+        private Trap _trapPrefab;
 
         private const char Door = 'D';
         private const char Interior = '0';
-        private const char Trap = 'T';
+        private const char TrapSymbol = 'T';
         private const char Enemy = 'E';  
         private const char Hero = 'H';   
+        private const char ChestSymbol = 'C';
 
         public void SetEnemyPrefab(Unit enemyPrefab)
         {
@@ -26,6 +29,16 @@ namespace Scripts.Factories
         public void SetHeroPrefab(Unit heroPrefab)
         {
             _heroPrefab = heroPrefab;
+        }
+
+        public void SetChestPrefab(Chest chestPrefab)
+        {
+            _chestPrefab = chestPrefab;
+        }
+
+        public void SetTrapPrefab(Trap trapPrefab)
+        {
+            _trapPrefab = trapPrefab;
         }
 
         public List<Cell> Create(string[] map, Cell prefab, float spacing, Transform root)
@@ -47,18 +60,24 @@ namespace Scripts.Factories
                     if (IsCellSymbol(symbol))
                     {
                         Cell cell = InstantiateCellAt(cellPrefab, x, y, spacing, root);
-                        if (symbol == Trap)
+                        
+                        switch (symbol)
                         {
-                            SetCellColor(cell, Color.red);
+                            case TrapSymbol:
+                                Trap trap = InstantiateUnitAt(_trapPrefab, cell) as Trap;
+                                trap.Initialize(UnityEngine.Random.Range(1, 6)); // Пример инициализации урона ловушки
+                                break;
+                            case Enemy:
+                                InstantiateUnitAt(_enemyPrefab, cell);
+                                break;
+                            case Hero:
+                                InstantiateUnitAt(_heroPrefab, cell);
+                                break;
+                            case ChestSymbol:
+                                InstantiateUnitAt(_chestPrefab, cell);
+                                break;
                         }
-                        else if (symbol == Enemy)
-                        {
-                            InstantiateUnitAt(_enemyPrefab, cell);
-                        }
-                        else if (symbol == Hero)
-                        {   
-                            InstantiateUnitAt(_heroPrefab, cell);
-                        }
+
                         cells.Add(cell);
                     }
                 }
@@ -74,7 +93,7 @@ namespace Scripts.Factories
 
         private bool IsCellSymbol(char symbol)
         {
-            return symbol == Door || symbol == Interior || symbol == Trap || symbol == Enemy || symbol == Hero;
+            return symbol == Door || symbol == Interior || symbol == TrapSymbol || symbol == Enemy || symbol == Hero || symbol == ChestSymbol;
         }
 
         private void CreateOutlineCells(string[] map, List<Cell> cells, Cell cellPrefab, float spacing, Transform root)
