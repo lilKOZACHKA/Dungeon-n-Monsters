@@ -112,24 +112,24 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             PointerChanged?.Invoke(_pointerEnter, this);
         }
 
-        public void SetUnit(Unit unit = null)
+        public int SetUnit(Unit unit)
         {
-            if (_unit != null && unit != null)
-            {
-                Destroy(_unit.gameObject); 
-            }
+            unit.transform.position = Transform.position;
 
-            if (unit == null)
-            {
-                _unit = null;
-                _haveUnit = false;
-            }
-            else
-            {
-                unit.transform.position = transform.position;
-                _unit = unit;
-                _haveUnit = true;
-            }
+            _unit = unit;
+
+            _haveUnit = true;
+
+            return 0;
+        }
+
+        public int SetUnit()
+        {
+            _unit = null;
+
+            _haveUnit = false;
+
+            return 0;
         }
 
         public void SetDefault()
