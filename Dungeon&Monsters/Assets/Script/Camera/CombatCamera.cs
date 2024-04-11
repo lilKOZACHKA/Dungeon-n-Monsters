@@ -10,7 +10,15 @@ namespace Scripts.UnitLogic
         public float smoothTime = 0.25f;
         private Vector3 currentVelocity;
 
-        public GameObject selectedUnit;
+        public GameObject[] units;
+        private GameObject selectedUnit;
+
+        public void Start()
+        {
+            GameObject[] _units = GameObject.FindGameObjectsWithTag("Unit");
+
+            units = _units;
+        }
 
         private void LateUpdate()
         {
@@ -25,9 +33,12 @@ namespace Scripts.UnitLogic
             }
         }
 
-        public void SelectUnit(int unit)
+        public void SelectUnit(int unitIndex)
         {
-            selectedUnit = unit;
+            if (unitIndex >= 0 && unitIndex < units.Length)
+            {
+                selectedUnit = units[unitIndex];
+            }
         }
     }
 }
