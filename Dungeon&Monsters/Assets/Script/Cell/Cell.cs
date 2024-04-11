@@ -31,30 +31,21 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         [SerializeField] private GameObject _gameObject;
         [SerializeField] private Transform _transform;
         
-
-
         public IState CurrentState => _stateMachine.CurrentState;
 
         private StateMachine _stateMachine;
         
         private DefaultState _defaultState;
         private SelectState _selectState;
-
-
         private MovingState _movingState;
         private AttackState _attackState;
 
         private bool _pointerEnter;
         public bool HaveUnit => _haveUnit;       
 
-        
-
         public Vector2Int Position => _position;
 
-
         public Unit Unit => _unit;
-
-        
 
         public GameObject GameObject => _gameObject;
         public Transform  Transform => _transform;
@@ -121,11 +112,19 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
                     return 1;
                 }
 
+                if (unit.MoveCount >= unit.MoveCountMax) 
+                { 
+                    Debug.Log("Вы достигли максимума"); 
+                    return 1; 
+                }
+
                 unit.Transform.position = _transform.position;
 
                 _unit = unit;
 
                 _haveUnit = true;
+
+                unit.MoveCount++;
 
                 return 0;
             }

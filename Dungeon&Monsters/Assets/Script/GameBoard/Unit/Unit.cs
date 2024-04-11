@@ -15,6 +15,8 @@ namespace Scripts.UnitLogic
         [SerializeField] private int _id;
         [SerializeField] private int _health;
         [SerializeField] private int _initiative;
+        [SerializeField] private int _moveCount = 0;
+        [SerializeField] private int _moveCountMax = 3;
 
         [SerializeField] private bool _isCombat = false;
         [SerializeField] private bool _isUnion = false;
@@ -78,7 +80,19 @@ namespace Scripts.UnitLogic
             set { _isUnion = value; }
         }
 
-        public Unit(int initialHealth, bool isCombat, bool isUnion, bool isActive, int initiative, int id)
+        public int MoveCount
+        {
+            get { return _moveCount; }
+            set { _moveCount = value; }
+        }
+
+        public int MoveCountMax
+        {
+            get { return _moveCountMax; }
+            set { _moveCountMax = value; }
+        }
+
+        public Unit(int initialHealth, bool isCombat, bool isUnion, bool isActive, int initiative, int id, int moveCountMax, int moveCount)
         {
             _health = initialHealth;
             _initiative = initiative;
@@ -86,6 +100,8 @@ namespace Scripts.UnitLogic
             _isUnion = isUnion;
             _id = id;
             _isActive = isActive;
+            _moveCount = moveCount;
+            _moveCountMax = moveCountMax;
         }
 
         private void OnDrawGizmosSelected() 
@@ -151,16 +167,16 @@ namespace Scripts.UnitLogic
 
         public void DoTurn(Unit currentUnit)
         {
-            //CombatCamera camera = GameObject.Find("CombatCamera").GetComponent<CombatCamera>();
-            //camera.SelectUnit(currentUnit._id);
+            CombatCamera camera = GameObject.Find("CombatCamera").GetComponent<CombatCamera>();
+            camera.SelectUnit(currentUnit);
 
             Debug.Log("Ход персонажа c инициативой - " + currentUnit.Initiative); 
         }
 
         public void BotTurn(Unit currentUnit)
         {
-            //CombatCamera camera = GameObject.Find("CombatCamera").GetComponent<CombatCamera>();
-            //camera.SelectUnit(currentUnit._id);
+            CombatCamera camera = GameObject.Find("CombatCamera").GetComponent<CombatCamera>();
+            camera.SelectUnit(currentUnit);
 
             Debug.Log("Ход бота c инициативой - " + currentUnit.Initiative);
         }

@@ -6790,6 +6790,8 @@ MonoBehaviour:
   _id: 3
   _health: 1
   _initiative: 0
+  _moveCount: 0
+  _moveCountMax: 3
   _isCombat: 0
   _isUnion: 1
   _isActive: 0
@@ -12846,6 +12848,8 @@ MonoBehaviour:
   _id: 2
   _health: 2
   _initiative: 0
+  _moveCount: 0
+  _moveCountMax: 3
   _isCombat: 0
   _isUnion: 0
   _isActive: 0
@@ -21981,7 +21985,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1080623789}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36c8702f92cbac24d94685efeb3e4611, type: 3}
+  m_Script: {fileID: 11500000, guid: 20c8d6c76dfa21a40b7460dfcf8fce63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   units:
@@ -34260,6 +34264,8 @@ MonoBehaviour:
   _id: 1
   _health: 1
   _initiative: 0
+  _moveCount: 0
+  _moveCountMax: 3
   _isCombat: 0
   _isUnion: 0
   _isActive: 0
@@ -38532,6 +38538,8 @@ MonoBehaviour:
   _id: 0
   _health: 2
   _initiative: 0
+  _moveCount: 0
+  _moveCountMax: 3
   _isCombat: 0
   _isUnion: 0
   _isActive: 0
