@@ -1,31 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Slot : MonoBehaviour
 {
-    private Inventory inventory;
-    public int i;
+    private Stack<Item> items = new Stack<Item>();
+    
+    [SerializeField]
+    public Image icon;
 
-    private void Start() 
+    public bool IsEmpty
     {
-        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+        get { return items.Count == 0; }
     }
 
-    private void Update()
+    public bool AddItem(Item item)
     {
-        if(transform.childCount <= 0)
-        {
-            inventory.isFull[i] = false;
-        }
-    }
+        items.Push(item);
+        icon.sprite = item.MyIcon;
+        icon.color = Color.white;
+        Debug.Log("3" + icon.name);
+        return true;
 
-    public void DropItem()
-    {
-        foreach(Transform child in transform)
-        {
-            child.GetComponent<Spawn>().SpawnDroppedItem();
-            GameObject.Destroy(child.gameObject);
-        }
     }
 }
