@@ -6227,14 +6227,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 305740641}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa7158b8a58afb74cad7a2924d4912d5, type: 3}
+  m_Script: {fileID: 11500000, guid: 75d849698db92a44ab8df1221deece5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 0, z: -5}
-  smoothTime: 0.25
-  units:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &307363297
 GameObject:
   m_ObjectHideFlags: 0
