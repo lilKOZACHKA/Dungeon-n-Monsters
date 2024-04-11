@@ -72,6 +72,12 @@ namespace Scripts.UnitLogic
             set { _isActive = value; }
         }
 
+        public bool IsUnion
+        {
+            get { return _isUnion; }
+            set { _isUnion = value; }
+        }
+
         public Unit(int initialHealth, bool isCombat, bool isUnion, bool isActive, int initiative, int id)
         {
             _health = initialHealth;
@@ -149,6 +155,14 @@ namespace Scripts.UnitLogic
             //camera.SelectUnit(currentUnit._id);
 
             Debug.Log("Ход персонажа c инициативой - " + currentUnit.Initiative); 
+        }
+
+        public void BotTurn(Unit currentUnit)
+        {
+            //CombatCamera camera = GameObject.Find("CombatCamera").GetComponent<CombatCamera>();
+            //camera.SelectUnit(currentUnit._id);
+
+            Debug.Log("Ход бота c инициативой - " + currentUnit.Initiative);
         }
     }
 }
