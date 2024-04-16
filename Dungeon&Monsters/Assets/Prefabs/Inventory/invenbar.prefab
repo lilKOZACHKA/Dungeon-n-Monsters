@@ -450,7 +450,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - {fileID: 11400000, guid: cc65b1ee509bcc547bf85989e812fc6d, type: 2}
-  inventory: {fileID: 0}
+  - {fileID: 11400000, guid: 78295e8c8f38fb1478b7d2b084126ee8, type: 2}
 --- !u!1 &8472031100528989563
 GameObject:
   m_ObjectHideFlags: 0

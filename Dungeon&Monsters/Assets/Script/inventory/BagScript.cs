@@ -9,6 +9,8 @@ public class BagScript : MonoBehaviour
 
     private List<Slot> slots = new List<Slot>();
 
+    public List<Slot> MySlots { get { return slots;}}
+
     public void AddSlots(int slotCount)
     {
         for (int i = 0; i < slotCount; i++)
@@ -25,7 +27,6 @@ public class BagScript : MonoBehaviour
           if (slot.IsEmpty)
           {
             slot.AddItem(item);
-            Debug.Log("2" + item.name);
             return true;
 
           }  

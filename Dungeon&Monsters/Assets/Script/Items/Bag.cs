@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Bag", menuName = "Items/Bag", order = 1)]
 
-public class Bag : Item
+public class Bag : Item, IUseable
 {
     private int slots;
 
@@ -20,8 +20,12 @@ public class Bag : Item
 
     public void Use()
     {
+        if(Inventory.MyInstance.CanAddBag){
+        Remove();
         MyBagScript = Instantiate(bagPrefab, Inventory.MyInstance.transform).GetComponent<BagScript>();
         MyBagScript.AddSlots(slots);
+        Inventory.MyInstance.AddBag(this);
+        }
     }
 
     

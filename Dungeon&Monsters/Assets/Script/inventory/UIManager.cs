@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
@@ -23,6 +24,9 @@ public class UIManager : MonoBehaviour
         if (Input.GetKeyDown(action3)){ actionButtonsOnClick(2);}
     }
 
-public void actionButtonsOnClick (int btnIndex)
-{actionButtons[btnIndex].onClick.Invoke(); }
+    public void actionButtonsOnClick (int btnIndex)
+    {actionButtons[btnIndex].onClick.Invoke(); }
+
+
+
 }
