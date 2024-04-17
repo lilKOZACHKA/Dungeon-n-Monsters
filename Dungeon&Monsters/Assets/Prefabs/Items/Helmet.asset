@@ -9,8 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a299967fc66a2b443ba0ef5964923a41, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f6bb79020e420749a4a9361ec8c64ce, type: 3}
   m_Name: Helmet
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 533e192d0b8b8544ba98fd0c69d6d62b, type: 3}
   stackSize: 0
+  armorType: 0
+  strength: 0
+  Dexterity: 0
+  Constitution: 0
+  Intelligence: 0
+  Wisdom: 0
+  Charisma: 0

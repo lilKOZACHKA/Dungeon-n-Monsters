@@ -9,8 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6988ba3b8da89cc4698c235c316bbd43, type: 3}
-  m_Name: Chest
+  m_Script: {fileID: 11500000, guid: 2f6bb79020e420749a4a9361ec8c64ce, type: 3}
+  m_Name: shield
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: bf4ef5210ec83d34a90c287057bca6df, type: 3}
+  icon: {fileID: 21300000, guid: 4e3140cd712d86d4c87005ceb433b4c1, type: 3}
   stackSize: 0
+  armorType: 3
+  strength: 0
+  Dexterity: 0
+  Constitution: 0
+  Intelligence: 0
+  Wisdom: 0
+  Charisma: 0

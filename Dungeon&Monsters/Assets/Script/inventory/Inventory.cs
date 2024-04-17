@@ -106,24 +106,42 @@ public class Inventory : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2)){
-            Sword Sword = (Sword)Instantiate(items[1]);
-            AddItem(Sword);
+            AddItem((Armor)Instantiate(items[1]));
+            AddItem((Armor)Instantiate(items[2]));
+            AddItem((Armor)Instantiate(items[3]));
+            AddItem((Armor)Instantiate(items[4]));
+            AddItem((Armor)Instantiate(items[5]));
+            
         
-            Debug.Log("Item added to inventory: " + Sword.name);
+            Debug.Log("Item added to inventory: ");
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha4)){
-            chestplate chestplate = (chestplate)Instantiate(items[2]);
-            AddItem(chestplate);
+        // if (Input.GetKeyDown(KeyCode.Alpha3)){
+        //     Armor armor = (Armor)Instantiate(items[2]);
+        //     AddItem(armor);
         
-            Debug.Log("Item added to inventory: " + chestplate.name);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3)){
-            helmet helmet = (helmet)Instantiate(items[3]);
-            AddItem(helmet);
+        //     Debug.Log("Item added to inventory: " + armor.name);
+        // }
+        // if (Input.GetKeyDown(KeyCode.Alpha4)){
+        //     Armor armor = (Armor)Instantiate(items[3]);
+        //     AddItem(armor);
         
-            Debug.Log("Item added to inventory: " + helmet.name);
-        }
+        //     Debug.Log("Item added to inventory: " + armor.name);
+        // }
+
+        // if (Input.GetKeyDown(KeyCode.Alpha5)){
+        //     Armor armor = (Armor)Instantiate(items[4]);
+        //     AddItem(armor);
+        
+        //     Debug.Log("Item added to inventory: " + armor.name);
+        // }
+
+        // if (Input.GetKeyDown(KeyCode.Alpha6)){
+        //     Armor armor = (Armor)Instantiate(items[5]);
+        //     AddItem(armor);
+        
+        //     Debug.Log("Item added to inventory: " + armor.name);
+        // }
     }
 
 }

@@ -7,12 +7,14 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.XR;
-public class Slot : MonoBehaviour, IPointerClickHandler
+public class Slot : MonoBehaviour, IPointerClickHandler, IClickable
 {
     private ObservableStack<Item> items = new ObservableStack<Item>();
     
     [SerializeField]
     public Image icon;
+[SerializeField]
+    private Text stackSize;
 
     public bool IsEmpty
     {
@@ -39,6 +41,10 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         
      }
 
+    public Image MyIcon { get; set;}
+
+    public int MyCount {get {return items.Count;}}
+
     public void RemoveItem(Item item)
     {
         if(!IsEmpty){ items.Pop(); }
@@ -64,17 +70,14 @@ public class Slot : MonoBehaviour, IPointerClickHandler
             if (Inventory.MyInstance.FromSlot == null && !IsEmpty){
             HandScript.MyInstance.TakeMoveable(MyItem as IMoveable);
             Inventory.MyInstance.FromSlot = this;
+            Inventory.MyInstance.FromSlot.icon.color = new Color(0,0,0,0);
             }
             else if (Inventory.MyInstance.FromSlot != null)
             {
-                if (PutItemBack() || AddItems(Inventory.MyInstance.FromSlot.items))
+                if (PutItemBack() || SwapItems(Inventory.MyInstance.FromSlot) || AddItems(Inventory.MyInstance.FromSlot.items))
                 {
-                    if (PutItemBack()){
-                    Inventory.MyInstance.FromSlot.icon.color = new Color(0, 0, 0,255);
-                    }
-                    Inventory.MyInstance.FromSlot.icon.color = new Color(0, 0, 0,0);
-                    HandScript.MyInstance.Drop();
                     
+                    HandScript.MyInstance.Drop();
                     Inventory.MyInstance.FromSlot = null;
                     
                 }
@@ -130,11 +133,30 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     {
         if(Inventory.MyInstance.FromSlot == this)
         { 
-          Inventory.MyInstance.FromSlot.icon.color = Color.white;
+        Inventory.MyInstance.FromSlot.icon.color = Color.white;
           
           return true;
         }
 
         return false;
     }
+
+    private bool SwapItems( Slot from)
+    {
+        if (IsEmpty)
+        {
+            return false;
+        }
+        if (from.MyCount.GetType() != MyItem.GetType() || from.MyCount+MyCount > MyItem.MyStackSize)
+        {
+            ObservableStack<Item> tmpFrom = new ObservableStack<Item>(from.items);
+            from.items.Clear();
+            from.AddItems(items);
+            items.Clear();
+            AddItems(tmpFrom);
+            return true;
+        }
+        return false;
+    }
+
 }
