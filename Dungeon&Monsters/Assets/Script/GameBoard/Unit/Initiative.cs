@@ -10,6 +10,7 @@ namespace Scripts.UnitLogic
         public List<Unit> units;
         private Queue<Unit> turnQueue;
         private Unit currentUnit;
+        private Vector2Int position;
 
         private void Start()
         {
@@ -35,31 +36,36 @@ namespace Scripts.UnitLogic
 
                 currentUnit.IsActive = true;
 
-                if (currentUnit.IsUnion == true)
+                if (currentUnit.IsUnion)
                 {
                     currentUnit.DoTurn(currentUnit);
                 }
                 else
                 {
-                    currentUnit.BotTurn(currentUnit);
+                    Vector2Int position = currentUnit.GetCellPosition(); // ѕолучаем позицию текущего юнита
+                    currentUnit.BotTurn(currentUnit, currentUnit.GetTransform(), position, units);
                 }
-                return;
             }
             else
             {
+                // ѕосле завершени€ очереди, мы можем начать новый цикл, возвраща€ все единицы в очередь
                 turnQueue = new Queue<Unit>(units);
                 StartNextTurn();
             }
         }
+
+
 
         public void EndRound()
         {
             foreach (Unit unit in units)
             {
                 unit.IsActive = false;
+                unit.MoveCount = 0; // ѕрисваивание значени€ 0 переменной MoveCount
             }
             StartNextTurn();
         }
+
     }
 }
 

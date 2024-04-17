@@ -31,30 +31,21 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         [SerializeField] private GameObject _gameObject;
         [SerializeField] private Transform _transform;
         
-
-
         public IState CurrentState => _stateMachine.CurrentState;
 
         private StateMachine _stateMachine;
         
         private DefaultState _defaultState;
         private SelectState _selectState;
-
-
         private MovingState _movingState;
         private AttackState _attackState;
 
         private bool _pointerEnter;
         public bool HaveUnit => _haveUnit;       
 
-        
-
         public Vector2Int Position => _position;
 
-
         public Unit Unit => _unit;
-
-        
 
         public GameObject GameObject => _gameObject;
         public Transform  Transform => _transform;
@@ -104,8 +95,16 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             PointerChanged?.Invoke(_pointerEnter, this);
         }
 
+        // В классе Cell
+        public bool IsCellOccupied()
+        {
+            return _unit != null;
+        }
+
+
         public int SetUnit(Unit unit)
         {
+
             if (unit != null && unit.IsCombat == true)
             {
                 if (unit != null && unit.IsActive != true) { return 1; }
@@ -116,9 +115,17 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
                 {
                     if ((_unit.Health -= 1) <= 0)
                     {
+                       // Destroy(_unit);
                         return 0;
                     }
                     return 1;
+                }
+               
+
+                if (unit.MoveCount >= unit.MoveCountMax) 
+                { 
+                    Debug.Log("Вы достигли максимума"); 
+                    return 1; 
                 }
 
                 unit.Transform.position = _transform.position;
@@ -126,6 +133,8 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
                 _unit = unit;
 
                 _haveUnit = true;
+
+                unit.MoveCount++;
 
                 return 0;
             }
