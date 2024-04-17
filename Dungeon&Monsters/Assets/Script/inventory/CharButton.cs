@@ -33,6 +33,7 @@ public class charButton : MonoBehaviour, IPointerClickHandler
         icon.sprite = armor.MyIcon;
         this.armor = armor;
         icon.color = Color.white;
+        HandScript.MyInstance.DeleteItem();
         Debug.Log("EQUIP  " + armor);
         
     }

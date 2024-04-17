@@ -51,6 +51,14 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IClickable
 
     }
 
+    public void Clear()
+    {
+        if(items.Count > 0)
+        {
+            items.Clear();
+        }
+    }
+
     public bool AddItem(Item item)
     {
         items.Push(item);

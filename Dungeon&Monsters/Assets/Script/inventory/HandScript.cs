@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 public class HandScript : MonoBehaviour
 {
@@ -25,6 +27,13 @@ public class HandScript : MonoBehaviour
     if (icon != null)
     {
         icon.transform.position = Input.mousePosition + offset;
+
+        if(Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject() && MyInstance.MyMoveable != null )
+         {
+            DeleteItem();
+         }
+
+        
     }
     else
     {
@@ -57,5 +66,19 @@ public class HandScript : MonoBehaviour
     {
         MyMoveable = null;
         icon.color = new Color(0, 0, 0,0);   
+    }
+
+
+    public void DeleteItem()
+    {
+    
+         if (MyMoveable is Item && Inventory.MyInstance.FromSlot != null)
+         {
+            (MyMoveable as Item).MySlot.Clear();
+         }
+
+         Drop();
+
+         Inventory.MyInstance.FromSlot = null;
     }
 }
