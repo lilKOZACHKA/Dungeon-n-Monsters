@@ -228,12 +228,6 @@ namespace Scripts.UnitLogic
             }
         }
 
-
-
-
-
-
-
         // Метод для поиска союзного юнита (IsUnion == true) для текущего юнита
         private Unit FindUnionUnit(Unit currentUnit, List<Unit> units)
         {
@@ -246,8 +240,6 @@ namespace Scripts.UnitLogic
             }
             return null; 
         }
-
-
 
 
 
@@ -298,12 +290,6 @@ namespace Scripts.UnitLogic
             onComplete?.Invoke();
         }
 
-
-
-
-
-
-
         // Метод для поиска объекта клетки по ее позиции
         private Cell GetCellAtPosition(Vector2Int position)
         {
@@ -321,10 +307,6 @@ namespace Scripts.UnitLogic
 
             return null; // Если клетка не найдена, возвращаем null
         }
-
-
-
-
 
         public List<Vector2Int> CalculatePath(Vector2Int startPosition, Vector2Int targetPosition)
         {

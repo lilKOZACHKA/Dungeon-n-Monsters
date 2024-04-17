@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using Scripts.UnitLogic; 
+using System.Collections.Generic; 
 using System.Linq;
 using UnityEngine;
 
@@ -8,29 +7,68 @@ namespace Scripts.UnitLogic
     public class Initiative : MonoBehaviour
     {
         public List<Unit> units;
+        private List<Unit> _units = new List<Unit>();
         private Queue<Unit> turnQueue;
         private Unit currentUnit;
-        private Vector2Int position;
 
-        private void Start()
+        public void findEnemyInArea(BoxCollider2D boxCollider, float detectionRange)
         {
-            foreach (Unit unit in units)
+           Collider2D[] colliders = Physics2D.OverlapBoxAll(boxCollider.transform.position, new Vector2(boxCollider.size.x, boxCollider.size.y) * detectionRange, 0);
+            
+            units.Clear();
+
+            foreach (Collider2D collider in colliders)
+            {
+                if (collider.gameObject.CompareTag("Unit"))
+                {
+                   // Debug.Log("Найден юнит: " + collider.gameObject.name);
+
+                    Unit unit = collider.gameObject.GetComponent<Unit>();
+
+                    if (unit != null && unit.gameObject.GetComponent<Unit>())
+                    {
+                        _units.Add(unit);
+                    }
+                }
+            }
+            GameObject gameManager = GameObject.Find("GameMananger");
+            if (gameManager != null) 
+            {
+                foreach (Unit unit in _units)
+                {
+                    gameManager.gameObject.GetComponent<Initiative>().units.Add(unit);
+                }
+            }
+        }
+
+        public void intiativeRoll()
+        {
+            GameObject gameManager = GameObject.Find("GameMananger");
+            _units = gameManager.GetComponent<Initiative>().units.ToList();
+
+            foreach (Unit unit in _units)
             {
                 unit.Initiative = Random.Range(1, 20);
                 unit.IsActive = false;
                 unit.IsCombat = true;
             }
 
-            units = units.OrderByDescending(unit => unit.Initiative).ToList();
+            _units = gameManager.GetComponent<Initiative>().units.OrderByDescending(unit => unit.Initiative).ToList();
+
+            gameManager.GetComponent<Initiative>().units.Clear();
+
+            gameManager.GetComponent<Initiative>().units = _units.ToList();
+
+            units = gameManager.GetComponent<Initiative>().units.ToList();
 
             turnQueue = new Queue<Unit>(units);
 
             StartNextTurn();
         }
 
-        private void StartNextTurn()
+        public void StartNextTurn()
         {
-            if (turnQueue.Count > 0)
+            if (turnQueue != null && turnQueue.Count > 0)
             {
                 currentUnit = turnQueue.Dequeue();
 
@@ -48,13 +86,11 @@ namespace Scripts.UnitLogic
             }
             else
             {
-                // После завершения очереди, мы можем начать новый цикл, возвращая все единицы в очередь
                 turnQueue = new Queue<Unit>(units);
+
                 StartNextTurn();
             }
         }
-
-
 
         public void EndRound()
         {
@@ -63,6 +99,7 @@ namespace Scripts.UnitLogic
                 unit.IsActive = false;
                 unit.MoveCount = 0; // Присваивание значения 0 переменной MoveCount
             }
+
             StartNextTurn();
         }
 
