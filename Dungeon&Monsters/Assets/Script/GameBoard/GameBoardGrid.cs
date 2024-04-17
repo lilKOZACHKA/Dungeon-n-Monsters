@@ -10,6 +10,8 @@ namespace Scripts.GameBoardLogic
     {
         private string[] _map;
 
+        private List<(int startX, int startY, int length, int width)> _roomCoordinates;
+
         [Header("Map Generation Parameters")]
         [SerializeField] private int _mapWidth = 250;
         [SerializeField] private int _mapHeight = 250;
@@ -56,12 +58,28 @@ namespace Scripts.GameBoardLogic
             _factory.SetHeroPrefab(_heroPrefab);
             _factory.SetChestPrefab(_chestPrefab);
             _factory.SetTrapPrefab(_trapPrefab);
+            _factory.SetRoomsCoordinate(_roomCoordinates);
             _cells = _factory.Create(_map, _cellPrefab, _spacing, _root);
         }
 
         [ContextMenu("Clear")]
         public void Clear()
         {
+            List<GameObject> roomColliders = new List<GameObject>();
+
+            foreach (Transform child in _root)
+            {
+                if (child.name == "RoomCollider")
+                {
+                    roomColliders.Add(child.gameObject);
+                }
+            }
+
+            foreach (GameObject collider in roomColliders)
+            {
+                DestroyImmediate(collider);
+            }
+
             for (int i = 0; i < _cells.Count;)
             {
                 DestroyImmediate(_cells[i].GameObject);
@@ -73,11 +91,13 @@ namespace Scripts.GameBoardLogic
         {
             Map gameMap = new Map(_mapWidth, _mapHeight);
             gameMap.GenerateConnectedRooms(_numRooms, _minRoomSize, _maxRoomSize, 1);
-            gameMap.PlaceDoors(1);
 
+            gameMap.PlaceDoors(1);
             gameMap.PlaceChests(_numChests); 
             gameMap.PlaceTraps(_numTraps);
             gameMap.PlaceEntities(_numEntities);
+
+            _roomCoordinates = gameMap.GetAllRoomCoordinates();
 
             _map = gameMap.ToStringArray();
         }

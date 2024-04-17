@@ -13,6 +13,7 @@ namespace Scripts.Factories
         private Unit _heroPrefab;
         private Chest _chestPrefab;
         private Trap _trapPrefab;
+        private List<(int startX, int startY, int length, int width)> _roomCoordinates;
 
         private const char Door = 'D';
         private const char Interior = '0';
@@ -41,12 +42,43 @@ namespace Scripts.Factories
             _trapPrefab = trapPrefab;
         }
 
+        public void SetRoomsCoordinate(List<(int startX, int startY, int length, int width)> roomCoordinates)
+        {
+            _roomCoordinates = roomCoordinates;
+        }
+
+        public void CreateRoomColliders(Transform root, float cellSize, float colliderSizeMultiplier = 1f)
+        {
+            foreach (var room in _roomCoordinates)
+            {
+                GameObject roomObject = new GameObject("RoomCollider");
+                roomObject.transform.parent = root;
+
+                float colliderCenterXBase = room.startX * cellSize + (room.width * cellSize) / 2.0f - (11.4f * cellSize);
+                float colliderCenterYBase = room.startY * cellSize + (room.length * cellSize) / 2.0f + (4.95f * cellSize);
+                colliderCenterYBase = -colliderCenterYBase;
+
+                float colliderCenterX = room.startX * cellSize + (room.width * cellSize * colliderSizeMultiplier) / 2.0f - (11.4f * cellSize);
+                float colliderCenterY = room.startY * cellSize + (room.length * cellSize * colliderSizeMultiplier) / 2.0f + (4.95f * cellSize);
+                colliderCenterY = -colliderCenterY;
+
+                roomObject.transform.position = new Vector3(colliderCenterXBase, colliderCenterYBase, 0);
+
+                BoxCollider2D collider = roomObject.AddComponent<BoxCollider2D>();
+                collider.size = new Vector2(room.width * cellSize * colliderSizeMultiplier, room.length * cellSize * colliderSizeMultiplier);
+                collider.isTrigger = true;
+            }
+        }
+
         public List<Cell> Create(string[] map, Cell prefab, float spacing, Transform root)
         {
             string[] expandedMap = ExpandMap(map);
             List<Cell> cells = new List<Cell>();
             CreateCellsFromMap(expandedMap, cells, prefab, spacing, root);
             CreateOutlineCells(expandedMap, cells, prefab, spacing, root);
+
+            CreateRoomColliders(root, spacing);
+
             return cells;
         }
 
@@ -65,7 +97,7 @@ namespace Scripts.Factories
                         {
                             case TrapSymbol:
                                 Trap trap = InstantiateUnitAt(_trapPrefab, cell) as Trap;
-                                trap.Initialize(UnityEngine.Random.Range(1, 6)); // Пример инициализации урона ловушки
+                                trap.Initialize(UnityEngine.Random.Range(1, 6)); 
                                 break;
                             case Enemy:
                                 InstantiateUnitAt(_enemyPrefab, cell);

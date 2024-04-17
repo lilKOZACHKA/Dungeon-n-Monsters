@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Room
 {
@@ -440,6 +441,19 @@ public class Map
             }
         }
     }
+
+    public List<(int startX, int startY, int length, int width)> GetAllRoomCoordinates()
+    {
+        List<(int startX, int startY, int length, int width)> roomDetails = new List<(int startX, int startY, int length, int width)>();
+        foreach (var roomData in Rooms)
+        {
+            var ((startX, startY), room) = roomData;
+            int adjustedStartX = startX - MinX;
+            int adjustedStartY = startY - MinY;
+            roomDetails.Add((adjustedStartX, adjustedStartY, room.Length, room.Width));
+        }
+        return roomDetails;
+    }
 }
 
 
@@ -447,22 +461,22 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Map gameMap = new Map(100, 100); 
+        Map gameMap = new Map(100, 100);
+        int nRooms = 10, minRoomSize = 5, maxRoomSize = 10;
 
-        int nRooms = 10, minRoomSize = 5, maxRoomSize = 10; 
-
-        
-        gameMap.GenerateConnectedRooms(nRooms, minRoomSize, maxRoomSize, 1); 
+        gameMap.GenerateConnectedRooms(nRooms, minRoomSize, maxRoomSize, 1);
         gameMap.PlaceDoors(1);
-        
-
         gameMap.PlaceChests(5);
         gameMap.PlaceTraps(5);
         gameMap.PlaceEntities(5);
 
-        Console.WriteLine(gameMap); 
+        var roomCoordinates = gameMap.GetAllRoomCoordinates();
+        foreach (var room in roomCoordinates)
+        {
+            Console.WriteLine($"Room at ({room.startX}, {room.startY}) with size {room.length}x{room.width}");
+        }
 
+        Console.WriteLine(gameMap);
         Console.ReadLine();
     }
 }
-
