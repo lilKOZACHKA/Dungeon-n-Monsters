@@ -47,19 +47,26 @@ namespace Scripts.Factories
             _roomCoordinates = roomCoordinates;
         }
 
-        public void CreateRoomColliders(Transform root, float cellSize, float colliderSizeMultiplier = 1f)
+        public void CreateRoomColliders(Transform root, float cellSize, float colliderSizeMultiplier = 1.5f) // множитель размера коллайдера
         {
+            bool isFirstRoom = true;
             foreach (var room in _roomCoordinates)
             {
+                if (isFirstRoom)
+                {
+                    isFirstRoom = false;
+                    continue;
+                }
+
                 GameObject roomObject = new GameObject("RoomCollider");
                 roomObject.transform.parent = root;
 
-                float colliderCenterXBase = room.startX * cellSize + (room.width * cellSize) / 2.0f - (11.4f * cellSize);
-                float colliderCenterYBase = room.startY * cellSize + (room.length * cellSize) / 2.0f + (4.95f * cellSize);
+                float colliderCenterXBase = room.startX * cellSize + (room.width * cellSize) / 2.0f - (13.5f * cellSize); // если криво встанет колайдер отредактировать эти значения
+                float colliderCenterYBase = room.startY * cellSize + (room.length * cellSize) / 2.0f + (5.45f * cellSize);
                 colliderCenterYBase = -colliderCenterYBase;
 
-                float colliderCenterX = room.startX * cellSize + (room.width * cellSize * colliderSizeMultiplier) / 2.0f - (11.4f * cellSize);
-                float colliderCenterY = room.startY * cellSize + (room.length * cellSize * colliderSizeMultiplier) / 2.0f + (4.95f * cellSize);
+                float colliderCenterX = room.startX * cellSize + (room.width * cellSize * colliderSizeMultiplier) / 2.0f - (13.5f * cellSize); // и эти
+                float colliderCenterY = room.startY * cellSize + (room.length * cellSize * colliderSizeMultiplier) / 2.0f + (5.45f * cellSize);
                 colliderCenterY = -colliderCenterY;
 
                 roomObject.transform.position = new Vector3(colliderCenterXBase, colliderCenterYBase, 0);
