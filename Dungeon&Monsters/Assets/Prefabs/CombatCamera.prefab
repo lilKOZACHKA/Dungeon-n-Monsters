@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2864158562281841421}
   - component: {fileID: 5042353719589886400}
   - component: {fileID: 5452290181112251643}
-  - component: {fileID: 6065082943133522897}
+  - component: {fileID: 1458153387437905505}
   m_Layer: 0
   m_Name: CombatCamera
   m_TagString: Untagged
@@ -110,7 +110,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 1
---- !u!114 &6065082943133522897
+--- !u!114 &1458153387437905505
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 69845384301598771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d3e3db8cbc10bb4c9ff582046c77760, type: 3}
+  m_Script: {fileID: 11500000, guid: d07c84199669e5a47a474e4e7841f529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0, z: -3}

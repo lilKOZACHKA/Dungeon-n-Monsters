@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6667492716971246587}
   - component: {fileID: 2688350605534445741}
   - component: {fileID: 6563811726805730708}
-  - component: {fileID: 3113839781994467919}
+  - component: {fileID: 3311796574745532137}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Unit
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.11151922, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.09549546, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
@@ -125,6 +125,7 @@ MonoBehaviour:
   _isCombat: 0
   _isUnion: 1
   _isActive: 1
+  _isTrap: 1
   _spacing: 1.05
 --- !u!70 &2688350605534445741
 CapsuleCollider2D:
@@ -188,7 +189,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3113839781994467919
+--- !u!114 &3311796574745532137
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -197,7 +198,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6689884783275334656}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab6fd37e4e9c55c4aa5eaf7b9f0ec0d6, type: 3}
+  m_Script: {fileID: 11500000, guid: 00bbba25ab33c3247961b226f91340d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   units: []
