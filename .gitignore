@@ -156,3 +156,4 @@ _ReSharper*/
 
 #Subversion files
 .svn 
+*.meta
