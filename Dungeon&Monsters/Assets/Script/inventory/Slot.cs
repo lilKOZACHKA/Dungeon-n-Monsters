@@ -84,13 +84,12 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IClickable
         }
         else if (Inventory.MyInstance.FromSlot == null && IsEmpty)
         {
-            if (HandScript.MyInstance.MyMoveable is Armor)
-            {
+            
                 Armor armor = (Armor)HandScript.MyInstance.MyMoveable;
                     HandScript.MyInstance.Drop();
                     Debug.Log("item added to inventory");
             
-            }
+            
         }
         else if (Inventory.MyInstance.FromSlot != null)
         {

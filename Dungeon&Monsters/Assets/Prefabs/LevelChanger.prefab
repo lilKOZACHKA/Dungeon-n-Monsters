@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6035949767933209580}
   - component: {fileID: 6458078084913441677}
   - component: {fileID: 3798027144424725793}
-  - component: {fileID: 189102671696092285}
+  - component: {fileID: 843846440342907069}
   m_Layer: 5
   m_Name: LevelChanger
   m_TagString: Untagged
@@ -29,7 +29,7 @@ RectTransform:
   m_GameObject: {fileID: 2408177368201946034}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5808319104839783209}
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &189102671696092285
+--- !u!114 &843846440342907069
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2408177368201946034}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b76d3b9f234cad4a97bf73ba69c6420, type: 3}
+  m_Script: {fileID: 11500000, guid: baf2043bb61b8ca489e2a08d523413c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 8670951465089670328}

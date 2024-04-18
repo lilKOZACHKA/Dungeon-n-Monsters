@@ -87,7 +87,23 @@ public class Inventory : MonoBehaviour
     }
  
 
+    public List<Slot> GetAllItems()
+    {
+        List<Slot> slots = new List<Slot>();
 
+        foreach(Bag bag in bags)
+        {
+        foreach(Slot slot in bag.MyBagScript.MySlots)
+        {
+           if(!slot.IsEmpty)
+           {
+            slots.Add(slot);
+           } 
+        }
+    }
+
+    return slots;
+    }
 
     private void Awake()
         { Bag bag = (Bag)Instantiate(items[0]);

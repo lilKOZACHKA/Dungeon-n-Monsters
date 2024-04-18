@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6151479933058088693}
   - component: {fileID: 3645356206089139430}
   - component: {fileID: 7628695668059332818}
+  - component: {fileID: 2006977156754287066}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Untagged
@@ -128,3 +129,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2006977156754287066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8430640802071819087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01673d013d0a7834e83228c92ec39886, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotPrefab: {fileID: 3996614499418657538, guid: 3a4b6fe903bf542428447831aba15958, type: 3}
+  items:
+  - {fileID: 11400000, guid: e3bf6ca988789f1439a634268fe92fee, type: 2}
+  - {fileID: 11400000, guid: 87d0fbc8d62ef384dacb0d653c092136, type: 2}
+  - {fileID: 11400000, guid: 4f7e8a8e5303ecf4e93c0757f9b8adb2, type: 2}
+  - {fileID: 11400000, guid: 071ea9bf3adac9d46894e9d2e65907bf, type: 2}
+  - {fileID: 11400000, guid: 0eedcb583d3e2a8499113c160eb3e6a0, type: 2}

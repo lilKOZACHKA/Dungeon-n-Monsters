@@ -18,4 +18,28 @@ public class Transition : MonoBehaviour
             SceneManager.LoadScene(levelToLoad);
         }
     }
+
+    [SerializeField]
+    public GameObject myPrefab;
+
+    // void Start()
+    // {
+    //     // Получаем сохраненные данные из SaveData
+    //     SaveData saveData = LoadSaveData();
+
+    //     // Создаем экземпляр префаба
+    //     GameObject newObject = Instantiate(myPrefab);
+        
+    //     // Если у префаба есть скрипт InventoryData
+    //     InventoryData inventoryData = newObject.GetComponent<InventoryData>();
+    //     if (inventoryData != null)
+    //     {
+    //         // Загружаем сохраненные данные инвентаря
+    //         inventoryData.MyBags = saveData.MyInventoryData.MyBags;
+    //         inventoryData.MyItems = saveData.MyInventoryData.MyItems;
+            
+    //         // Дополнительные операции с созданным объектом, если необходимо
+    //     }
+    
+
 }
