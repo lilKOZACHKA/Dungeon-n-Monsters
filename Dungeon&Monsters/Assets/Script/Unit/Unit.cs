@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Scripts.CellLogic;
+using Scripts.GameBoardLogic;
 using UnityEngine;
 
 namespace Scripts.UnitLogic
@@ -33,12 +34,12 @@ namespace Scripts.UnitLogic
         [SerializeField] public bool _isCombat = false;
         [SerializeField] public bool _isUnion = false;
         [SerializeField] public bool _isActive = true;
+        [SerializeField] public bool _isTrap = true;
 
         [SerializeField] private float _spacing;
 
         public Vector2Int[] Moves => _moves;
         public Vector2Int[] AttackMoves => _attackMoves;
-
 
         private void OnDrawGizmosSelected()
         {

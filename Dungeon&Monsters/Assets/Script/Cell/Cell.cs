@@ -114,12 +114,59 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
         public int SetUnit(Unit unit)
         {
-            unit.transform.position = Transform.position;
+            if (unit != null && unit._isCombat == true)
+            {
+                if (unit != null && unit._isActive != true) { return 1; }
 
-            _unit = unit;
+                if (unit == null && unit._isActive != true) { return 1; }
 
-            _haveUnit = true;
+                if (_unit != null && unit != null && _unit._health > 0 && unit._health > 0)
+                {
+                    if ((_unit._health -= 1) <= 0)
+                    {
+                        Destroy(_unit.GameObject);
 
+                        _unit = unit;
+
+                        _haveUnit = true;
+
+                        return 0;
+                    }
+                    return 1;
+                }
+
+
+                if (unit._moveCount >= unit._moveCountMax)
+                {
+                    Debug.Log("Вы достигли максимума");
+                    return 1;
+                }
+
+                unit.Transform.position = _transform.position;
+
+                if (unit._isTrap) 
+                {
+                    unit._health -= 1;
+                }
+
+                _unit = unit;
+
+                _haveUnit = true;
+
+                unit._moveCount++;
+
+                return 0;
+            }
+            else if (unit != null)
+            {
+                unit.Transform.position = _transform.position;
+
+                _unit = unit;
+
+                _haveUnit = true;
+
+                return 0;
+            }
             return 0;
         }
 

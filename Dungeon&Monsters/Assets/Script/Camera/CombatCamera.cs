@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Scripts.UnitLogic
@@ -10,13 +11,6 @@ namespace Scripts.UnitLogic
 
         private Unit selectedUnit;
 
-        public void Start()
-        {
-            Unit unit = GameObject.Find("Hero(Clone)").GetComponent<Unit>();
-
-            selectedUnit = unit;
-        }
-
         private void LateUpdate()
         {
             if (selectedUnit != null)
@@ -27,6 +21,12 @@ namespace Scripts.UnitLogic
                     ref currentVelocity,
                     smoothTime
                 );
+            }
+            else
+            {
+                Unit unit = GameObject.Find("Hero(Clone)").GetComponent<Unit>();
+
+                selectedUnit = unit;
             }
         }
 

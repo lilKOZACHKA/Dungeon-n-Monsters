@@ -49,6 +49,11 @@ namespace Scripts.GameBoardLogic
         private GameBoardFactory _factory;
 
         [ContextMenu("Create")]
+
+        private void Awake()
+        {
+            Create();
+        }
         public void Create()
         {
             Clear();

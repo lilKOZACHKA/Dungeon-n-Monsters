@@ -123,7 +123,7 @@ MonoBehaviour:
   _moveCount: 0
   _moveCountMax: 3
   _isCombat: 0
-  _isUnion: 0
+  _isUnion: 1
   _isActive: 1
   _spacing: 1.05
 --- !u!70 &2688350605534445741
