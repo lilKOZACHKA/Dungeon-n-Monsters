@@ -105,6 +105,6 @@ namespace Scripts.GameBoardLogic
             _roomCoordinates = gameMap.GetAllRoomCoordinates();
 
             _map = gameMap.ToStringArray();
-        }
+        } 
     }
 }

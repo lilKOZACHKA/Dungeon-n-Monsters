@@ -1,6 +1,7 @@
 using System.Collections.Generic; 
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Scripts.UnitLogic
 {
@@ -112,6 +113,10 @@ namespace Scripts.UnitLogic
             StartNextTurn();
         }
 
+        public void Restart()
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 }
 
