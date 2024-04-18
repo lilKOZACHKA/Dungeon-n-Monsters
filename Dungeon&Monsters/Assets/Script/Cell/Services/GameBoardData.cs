@@ -94,26 +94,26 @@ namespace Scripts.CellLogic
                 }
             }
 
-            foreach (Vector2Int move in attackMoves)
-            {
-                Cell attackCell = FindCell(unitPosition, move, true);
+            // foreach (Vector2Int move in attackMoves)
+            // {
+            //     Cell attackCell = FindCell(unitPosition, move, true);
 
-                if(attackCell != null)
-                {
-                    var movingCell = cells.FirstOrDefault(cell => attackCell == cell);
+            //     if(attackCell != null)
+            //     {
+            //         var movingCell = cells.FirstOrDefault(cell => attackCell == cell);
 
-                    if(movingCell != null)
-                    {
-                        movingCell.SetAttack();
-                    }
-                    else
-                    {
-                        attackCell.SetAttack();
+            //         if(movingCell != null)
+            //         {
+            //             movingCell.SetAttack();
+            //         }
+            //         else
+            //         {
+            //             attackCell.SetAttack();
 
-                        cells.Add(attackCell);
-                    }
-                }
-            }
+            //             cells.Add(attackCell);
+            //         }
+            //     }
+            // }
             return cells;
         }
 
