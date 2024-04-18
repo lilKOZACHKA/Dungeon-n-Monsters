@@ -21,6 +21,15 @@ namespace Scripts.CellLogic
         [SerializeField] private Cell _cell;
 
 
+        public void SetColor(Color color)
+        {
+            if (_spriteRenderer != null)
+            {  
+                _defaultColor = color;
+                _spriteRenderer.color = color;
+            }
+        }
+
         private void OnEnable() 
         {
             _cell.StateChanged += (state, oldState, sender) => SetColorByState(state, sender.PointerEnter);
