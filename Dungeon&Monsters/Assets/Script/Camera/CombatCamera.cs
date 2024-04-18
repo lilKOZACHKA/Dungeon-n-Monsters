@@ -1,23 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scripts.UnitLogic
 {
     public class CombatCamera : MonoBehaviour
     {
-        public Vector3 offset = new Vector3(0, 0, -5);
+        public Vector3 offset = new Vector3(0, 0, -3);
         public float smoothTime = 0.25f;
         private Vector3 currentVelocity;
 
-        public GameObject[] units;
-        private GameObject selectedUnit;
+        private Unit selectedUnit;
 
         public void Start()
         {
-            GameObject[] _units = GameObject.FindGameObjectsWithTag("Unit");
+            Unit unit = GameObject.Find("Hero").GetComponent<Unit>();
 
-            units = _units;
+            selectedUnit = unit;
         }
 
         private void LateUpdate()
@@ -33,12 +30,10 @@ namespace Scripts.UnitLogic
             }
         }
 
-        public void SelectUnit(int unitIndex)
+        public void SetupCamera(Unit unit)
         {
-            if (unitIndex >= 0 && unitIndex < units.Length)
-            {
-                selectedUnit = units[unitIndex];
-            }
+            GameObject combatCamera = GameObject.Find("CombatCamera");
+            combatCamera.GetComponent<CombatCamera>().selectedUnit = unit;
         }
     }
 }

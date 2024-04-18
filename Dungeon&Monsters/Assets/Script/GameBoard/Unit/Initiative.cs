@@ -74,9 +74,12 @@ namespace Scripts.UnitLogic
 
                 currentUnit.IsActive = true;
 
+                CombatCamera combatCamera = new CombatCamera();
+                combatCamera.SetupCamera(currentUnit);
+
                 if (currentUnit.IsUnion)
                 {
-                    currentUnit.DoTurn(currentUnit);
+                    currentUnit.DoTurn(currentUnit);                
                 }
                 else
                 {
