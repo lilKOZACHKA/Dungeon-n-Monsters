@@ -27,42 +27,25 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
         [SerializeField] private bool _haveUnit;
 
-        [SerializeField] private bool _isWalkable = true;
-
         [Header("Components")]
         [SerializeField] private GameObject _gameObject;
         [SerializeField] private Transform _transform;
         
-
-        public bool IsWalkable
-        {
-            get => _isWalkable;
-            set => _isWalkable = value;
-        }
-
-
         public IState CurrentState => _stateMachine.CurrentState;
 
         private StateMachine _stateMachine;
         
         private DefaultState _defaultState;
         private SelectState _selectState;
-
-
         private MovingState _movingState;
         private AttackState _attackState;
 
         private bool _pointerEnter;
         public bool HaveUnit => _haveUnit;       
 
-        
-
         public Vector2Int Position => _position;
 
-
         public Unit Unit => _unit;
-
-        
 
         public GameObject GameObject => _gameObject;
         public Transform  Transform => _transform;
@@ -70,7 +53,7 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         public DefaultState DefaultState => _defaultState;
         public SelectState SelectState => _selectState;
         public bool PointerEnter => _pointerEnter;
-        
+
         private void Awake() 
         {
             _stateMachine = new();
@@ -112,14 +95,64 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             PointerChanged?.Invoke(_pointerEnter, this);
         }
 
+        // В классе Cell
+        public bool IsCellOccupied()
+        {
+            return _unit != null;
+        }
+
+
         public int SetUnit(Unit unit)
         {
-            unit.transform.position = Transform.position;
 
-            _unit = unit;
+            if (unit != null && unit.IsCombat == true)
+            {
+                if (unit != null && unit.IsActive != true) { return 1; }
 
-            _haveUnit = true;
+                if (unit == null && unit.IsActive != true) { return 1; }
 
+                if (_unit != null && unit != null && _unit.Health > 0 && unit.Health > 0)
+                {
+                    if ((_unit.Health -= 1) <= 0)
+                    {
+                        Destroy(_unit.GameObject);
+
+                        _unit = unit;
+
+                        _haveUnit = true;
+
+                        return 0;
+                    }
+                    return 1;
+                }
+               
+
+                if (unit.MoveCount >= unit.MoveCountMax) 
+                { 
+                    Debug.Log("Вы достигли максимума"); 
+                    return 1; 
+                }
+
+                unit.Transform.position = _transform.position;
+
+                _unit = unit;
+
+                _haveUnit = true;
+
+                unit.MoveCount++;
+
+                return 0;
+            }
+            else if (unit != null)
+            {
+                unit.Transform.position = _transform.position;
+
+                _unit = unit;
+
+                _haveUnit = true;
+
+                return 0;
+            }
             return 0;
         }
 
@@ -131,6 +164,7 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
             return 0;
         }
+
 
         public void SetDefault()
         {
