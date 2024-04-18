@@ -263,7 +263,14 @@ namespace Scripts.UnitLogic
                     // Установить юнит на клетку
                     if (targetCell.SetUnit(unit) == 0)
                     {
-                        targetCell.SetUnit();
+                        // Успешно установлен новый юнит
+                        // Можно выполнить дополнительные действия
+                        if (_cell != null && _cell != targetCell)
+                        {
+                            // Если текущая клетка не null и отличается от целевой клетки
+                            _cell.SetUnit(); // Удаляем текущий юнит из текущей клетки
+                        }
+
                         _transform.position = targetCell.Transform.position;
                         _cell = targetCell;
                     }
