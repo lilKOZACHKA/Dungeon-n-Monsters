@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using Unity.Burst.Intrinsics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -73,24 +74,35 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IClickable
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {   
-            if (Inventory.MyInstance.FromSlot == null && !IsEmpty){
+    if (eventData.button == PointerEventData.InputButton.Left)
+    {   
+        if (Inventory.MyInstance.FromSlot == null && !IsEmpty)
+        {
             HandScript.MyInstance.TakeMoveable(MyItem as IMoveable);
             Inventory.MyInstance.FromSlot = this;
             Inventory.MyInstance.FromSlot.icon.color = new Color(0,0,0,0);
-            }
-            else if (Inventory.MyInstance.FromSlot != null)
+        }
+        else if (Inventory.MyInstance.FromSlot == null && IsEmpty)
+        {
+            if (HandScript.MyInstance.MyMoveable is Armor)
             {
-                if (PutItemBack() || SwapItems(Inventory.MyInstance.FromSlot) || AddItems(Inventory.MyInstance.FromSlot.items))
-                {
-                    
+                Armor armor = (Armor)HandScript.MyInstance.MyMoveable;
                     HandScript.MyInstance.Drop();
-                    Inventory.MyInstance.FromSlot = null;
-                    
-                }
+                    Debug.Log("item added to inventory");
+            
             }
         }
+        else if (Inventory.MyInstance.FromSlot != null)
+        {
+            if (PutItemBack() || SwapItems(Inventory.MyInstance.FromSlot) || AddItems(Inventory.MyInstance.FromSlot.items))
+            {
+                HandScript.MyInstance.Drop();
+                Inventory.MyInstance.FromSlot = null;
+            }
+        }
+    }
+
+
         if(eventData.button == PointerEventData.InputButton.Right)
         {
             UseItem();

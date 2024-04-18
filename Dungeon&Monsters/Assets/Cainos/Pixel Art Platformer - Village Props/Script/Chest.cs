@@ -5,7 +5,7 @@ using Cainos.LucidEditor;
 
 namespace Cainos.PixelArtPlatformer_VillageProps
 {
-    public class Chest : MonoBehaviour
+    public class ChestS : MonoBehaviour
     {
         [FoldoutGroup("Reference")]
         public Animator animator;
