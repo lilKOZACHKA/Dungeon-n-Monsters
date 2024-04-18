@@ -4,17 +4,15 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Unit
-  - Area
-  - Cell
+  - Item
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Hero
+  - item
   - Water
   - UI
-  - Enemy
+  - 
   - 
   - 
   - 
