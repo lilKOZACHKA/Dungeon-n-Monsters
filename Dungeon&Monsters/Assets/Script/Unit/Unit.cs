@@ -131,7 +131,7 @@ namespace Scripts.UnitLogic
             {
                 try
                 {
-                        Unit targetUnit = FindUnionUnit(currentUnit, units);
+                    Unit targetUnit = FindUnionUnit(currentUnit, units);
                     if (targetUnit == null)
                     {
                         Debug.Log("Союзный юнит для бота не найден.");
@@ -195,24 +195,27 @@ namespace Scripts.UnitLogic
                 // Проверить, что клетка найдена
                 if (targetCell != null)
                 {
-                    // Установить юнит на клетку
-                    if (targetCell.SetUnit(unit) == 0)
+                    if (targetCell.IsWalkable)
                     {
-                        // Успешно установлен новый юнит
-                        // Можно выполнить дополнительные действия
-                        if (_cell != null && _cell != targetCell)
+                        // Установить юнит на клетку
+                        if (targetCell.SetUnit(unit) == 0)
                         {
-                            // Если текущая клетка не null и отличается от целевой клетки
-                            _cell.SetUnit(); // Удаляем текущий юнит из текущей клетки
-                        }
+                            // Успешно установлен новый юнит
+                            // Можно выполнить дополнительные действия
+                            if (_cell != null && _cell != targetCell)
+                            {
+                                // Если текущая клетка не null и отличается от целевой клетки
+                                _cell.SetUnit(); // Удаляем текущий юнит из текущей клетки
+                            }
 
-                        transform.position = targetCell.Transform.position;
-                        _cell = targetCell;
+                            transform.position = targetCell.Transform.position;
+                            _cell = targetCell;
+                        }
                     }
                     // Проверить, успешно ли установлен юнит на клетку
                     else
                     {
-                        
+
                         // Если не удалось установить юнит на клетку, завершить ход
                         Debug.Log("Не удалось переместить бота на клетку.");
                         onComplete?.Invoke();
