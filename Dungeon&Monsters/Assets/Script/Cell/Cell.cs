@@ -115,7 +115,12 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
                 {
                     if ((_unit.Health -= 1) <= 0)
                     {
-                       // Destroy(_unit);
+                        Destroy(_unit.GameObject);
+
+                        _unit = unit;
+
+                        _haveUnit = true;
+
                         return 0;
                     }
                     return 1;

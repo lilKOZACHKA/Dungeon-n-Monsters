@@ -68,6 +68,12 @@ namespace Scripts.UnitLogic
 
         public void StartNextTurn()
         {
+            if (turnQueue == null)
+            {
+                GameObject gameManager = GameObject.Find("GameMananger");
+                turnQueue = gameManager.GetComponent<Initiative>().turnQueue;
+
+            }
             if (turnQueue != null && turnQueue.Count > 0)
             {
                 currentUnit = turnQueue.Dequeue();

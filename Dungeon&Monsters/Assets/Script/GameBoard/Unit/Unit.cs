@@ -160,7 +160,7 @@ namespace Scripts.UnitLogic
 
         public void Initialize(Cell cell)
         {
-            if ((cell.SetUnit(this)) == 0)
+            if (cell.SetUnit(this) == 0)
             {
                 _cell.SetUnit();
                 _transform.position = cell.Transform.position;
@@ -187,8 +187,6 @@ namespace Scripts.UnitLogic
 
         public void DoTurn(Unit currentUnit)
         {
-            CombatCamera camera = GameObject.Find("CombatCamera").GetComponent<CombatCamera>();
-            //          camera.SelectUnit(currentUnit);
 
             Debug.Log("Ход персонажа c инициативой - " + currentUnit.Initiative);
         }
@@ -200,31 +198,41 @@ namespace Scripts.UnitLogic
 
         public void BotTurn(Unit currentUnit, Transform transform, Vector2Int position, List<Unit> units)
         {
-            CombatCamera camera = GameObject.Find("CombatCamera").GetComponent<CombatCamera>();
             Debug.Log("Ход бота c инициативой - " + currentUnit.Initiative);
 
             if (currentUnit.IsCombat)
             {
-                Unit targetUnit = FindUnionUnit(currentUnit, units);
-                if (targetUnit == null)
+                try
                 {
-                    Debug.Log("Союзный юнит для бота не найден.");
-                    return;
-                }
+                        Unit targetUnit = FindUnionUnit(currentUnit, units);
+                    if (targetUnit == null)
+                    {
+                        Debug.Log("Союзный юнит для бота не найден.");
+                        return;
+                    }
 
-                Vector2Int targetPosition = targetUnit.GetCellPosition();
-                Vector2Int startPosition = currentUnit.GetCellPosition();
+                    Vector2Int targetPosition = targetUnit.GetCellPosition();
+                    Vector2Int startPosition = currentUnit.GetCellPosition();
 
-                List<Vector2Int> path = CalculatePath(startPosition, targetPosition);
+                    List<Vector2Int> path = CalculatePath(startPosition, targetPosition);
 
-                StartCoroutine(MoveAlongPathWithUnit(path, currentUnit, startPosition, () =>
+                
+                        StartCoroutine(MoveAlongPathWithUnit(path, currentUnit, startPosition, () =>
+                        {
+                            Initiative initiative = FindObjectOfType<Initiative>();
+                            initiative.EndRound();
+
+                            // Обновляем позицию бота после завершения перемещения
+                            currentUnit.Initialize(currentUnit.GetCellAtPosition(position));
+                        }));
+                    }
+                catch
                 {
                     Initiative initiative = FindObjectOfType<Initiative>();
                     initiative.EndRound();
 
-                    // Обновляем позицию бота после завершения перемещения
-                    currentUnit.Initialize(currentUnit.GetCellAtPosition(position));
-                }));
+                    Debug.Log("Поломался");
+                }
             }
         }
 
