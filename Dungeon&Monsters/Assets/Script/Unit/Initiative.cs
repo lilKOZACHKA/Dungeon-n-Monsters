@@ -48,12 +48,12 @@ namespace Scripts.UnitLogic
 
             foreach (Unit unit in _units)
             {
-                unit.Initiative = Random.Range(1, 20);
-                unit.IsActive = false;
-                unit.IsCombat = true;
+                unit._initiative = Random.Range(1, 20);
+                unit._isActive = false;
+                unit._isCombat = true;
             }
 
-            _units = gameManager.GetComponent<Initiative>().units.OrderByDescending(unit => unit.Initiative).ToList();
+            _units = gameManager.GetComponent<Initiative>().units.OrderByDescending(unit => unit._initiative).ToList();
 
             gameManager.GetComponent<Initiative>().units.Clear();
 
@@ -78,12 +78,12 @@ namespace Scripts.UnitLogic
             {
                 currentUnit = turnQueue.Dequeue();
 
-                currentUnit.IsActive = true;
+                currentUnit._isActive = true;
 
                 CombatCamera combatCamera = new CombatCamera();
                 combatCamera.SetupCamera(currentUnit);
 
-                if (currentUnit.IsUnion)
+                if (currentUnit._isUnion)
                 {
                     currentUnit.DoTurn(currentUnit);                
                 }
@@ -105,8 +105,8 @@ namespace Scripts.UnitLogic
         {
             foreach (Unit unit in units)
             {
-                unit.IsActive = false;
-                unit.MoveCount = 0; // Присваивание значения 0 переменной MoveCount
+                unit._isActive = false;
+                unit._moveCount = 0; // Присваивание значения 0 переменной MoveCount
             }
 
             StartNextTurn();

@@ -12,7 +12,7 @@ namespace Scripts.UnitLogic
 
         public void Start()
         {
-            Unit unit = GameObject.Find("Hero").GetComponent<Unit>();
+            Unit unit = GameObject.Find("Hero(Clone)").GetComponent<Unit>();
 
             selectedUnit = unit;
         }

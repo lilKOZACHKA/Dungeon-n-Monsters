@@ -47,7 +47,7 @@ namespace Scripts.Factories
             _roomCoordinates = roomCoordinates;
         }
 
-        public void CreateRoomColliders(Transform root, float cellSize, float colliderSizeMultiplier = 1.5f) // множитель размера коллайдера
+        public void CreateRoomColliders(Transform root, float cellSize, float colliderSizeMultiplier = 1f) // множитель размера коллайдера
         {
             bool isFirstRoom = true;
             foreach (var room in _roomCoordinates)
@@ -60,6 +60,8 @@ namespace Scripts.Factories
 
                 GameObject roomObject = new GameObject("RoomCollider");
                 roomObject.transform.parent = root;
+                roomObject.tag = "Area";
+                roomObject.AddComponent<CollisionHandler>();
 
                 float colliderCenterXBase = room.startX * cellSize + (room.width * cellSize) / 2.0f - (13.5f * cellSize); // если криво встанет колайдер отредактировать эти значения
                 float colliderCenterYBase = room.startY * cellSize + (room.length * cellSize) / 2.0f + (5.45f * cellSize);

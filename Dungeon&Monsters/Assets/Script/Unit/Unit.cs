@@ -13,17 +13,8 @@ namespace Scripts.UnitLogic
         [SerializeField] private Vector2Int[] _moves;
         [SerializeField] private Vector2Int[] _attackMoves;
 
-        [Space]
-
-        [SerializeField] private int _id;
-        [SerializeField] private int _health;
-        [SerializeField] private int _initiative;
-        [SerializeField] public int _moveCount = 0;
-        [SerializeField] private int _moveCountMax = 5;
-
-        [SerializeField] private bool _isCombat = false;
-        [SerializeField] private bool _isUnion = false;
-        [SerializeField] private bool _isActive = false;
+        public GameObject GameObject => gameObject;
+        public Transform Transform => transform;
 
         [SerializeField] private Cell _cell;
 
@@ -34,95 +25,20 @@ namespace Scripts.UnitLogic
 
         [Space]
 
-        [SerializeField] private float _spacing;
+        [SerializeField] public int _health = 10;
+        [SerializeField] public int _initiative;
+        [SerializeField] public int _moveCount = 0;
+        [SerializeField] public int _moveCountMax = 3;
 
-        [Header("Components")]
-        [SerializeField] private GameObject _gameObject;
-        [SerializeField] private Transform _transform;
+        [SerializeField] public bool _isCombat = false;
+        [SerializeField] public bool _isUnion = false;
+        [SerializeField] public bool _isActive = true;
+
+        [SerializeField] private float _spacing;
 
         public Vector2Int[] Moves => _moves;
         public Vector2Int[] AttackMoves => _attackMoves;
 
-        public GameObject GameObject => _gameObject;
-
-        public Transform Transform => transform;
-
-
-        //public Cell Cell;
-
-        public int Id
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
-
-        public int Health
-        {
-            get { return _health; }
-            set { _health = value; }
-        }
-
-        public int Initiative
-        {
-            get { return _initiative; }
-            set { _initiative = value; }
-        }
-
-        public bool IsCombat
-        {
-            get { return _isCombat; }
-            set { _isCombat = value; }
-        }
-
-        public bool IsActive
-        {
-            get { return _isActive; }
-            set { _isActive = value; }
-        }
-
-        public bool IsUnion
-        {
-            get { return _isUnion; }
-            set { _isUnion = value; }
-        }
-
-        public int MoveCount
-        {
-            get { return _moveCount; }
-            set { _moveCount = value; }
-        }
-
-        public int MoveCountMax
-        {
-            get { return _moveCountMax; }
-            set { _moveCountMax = value; }
-        }
-
-        // В классе Unit
-        public Vector2Int GetCellPosition()
-        {
-            if (_cell != null)
-            {
-                return _cell.Position;
-            }
-            else
-            {
-                Debug.LogError("Ошибка: У юнита нет ссылки на клетку.");
-                return Vector2Int.zero; 
-            }
-        }
-
-        public Unit(int initialHealth, bool isCombat, bool isUnion, bool isActive, int initiative, int id, int moveCountMax, int moveCount)
-        {
-            _health = initialHealth;
-            _initiative = initiative;
-            _isCombat = isCombat;
-            _isUnion = isUnion;
-            _id = id;
-            _isActive = isActive;
-            _moveCount = moveCount;
-            _moveCountMax = moveCountMax;
-        }
 
         private void OnDrawGizmosSelected()
         {
@@ -130,47 +46,46 @@ namespace Scripts.UnitLogic
 
             foreach (Vector2 move in _moves)
             {
-                Vector2 position = move * _transform.localScale * _spacing + (Vector2)_transform.localPosition;
+                Vector2 position = move * transform.localScale * _spacing + (Vector2)transform.localPosition;
 
                 if (_attackMoves.Any(attackMove => attackMove == move))
                 {
                     Gizmos.color = _universalColor;
-
-                    Gizmos.DrawWireCube(position, _transform.localScale);
-
+                    Gizmos.DrawWireCube(position, transform.localScale);
                     continue;
                 }
 
                 Gizmos.color = _moveColor;
-
-                Gizmos.DrawCube(position, _transform.localScale);
+                Gizmos.DrawCube(position, transform.localScale);
             }
 
             Gizmos.color = _attackColor;
 
             foreach (Vector2 attackMove in _attackMoves)
             {
-                Vector2 position = attackMove * _transform.localScale * _spacing + (Vector2)_transform.localPosition;
-
                 if (_moves.Any(move => move == attackMove)) continue;
 
-                Gizmos.DrawCube(position, _transform.localScale);
+                Vector2 position = attackMove * transform.localScale * _spacing + (Vector2)transform.localPosition;
+                Gizmos.DrawCube(position, transform.localScale);
             }
         }
 
         public void Initialize(Cell cell)
         {
-            if (cell.SetUnit(this) == 0)
+            if (cell.IsWalkable)
             {
-                _cell.SetUnit();
-                _transform.position = cell.Transform.position;
-                _cell = cell;
+                if (cell.SetUnit(this) == 0)
+                {
+                    if (_cell != null) { _cell.SetUnit(); }
+                    transform.position = cell.Transform.position;
+                    _cell = cell;
+                }
             }
         }
 
         public void FindCell()
         {
-            Collider2D[] colliders = Physics2D.OverlapBoxAll(_transform.position, _transform.localScale, 0);
+            Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, transform.localScale, 0);
 
             if (colliders.Length == 0) return;
 
@@ -180,7 +95,6 @@ namespace Scripts.UnitLogic
             if (cell != null)
             {
                 cell.SetUnit(this);
-
                 _cell = cell;
             }
         }
@@ -188,19 +102,32 @@ namespace Scripts.UnitLogic
         public void DoTurn(Unit currentUnit)
         {
 
-            Debug.Log("Ход персонажа c инициативой - " + currentUnit.Initiative);
+            Debug.Log("Ход персонажа c инициативой - " + currentUnit._initiative);
         }
 
         public Transform GetTransform()
         {
-            return _transform;
+            return transform;
+        }
+
+        public Vector2Int GetCellPosition()
+        {
+            if (_cell != null)
+            {
+                return _cell.Position;
+            }
+            else
+            {
+                Debug.LogError("Ошибка: У юнита нет ссылки на клетку.");
+                return Vector2Int.zero;
+            }
         }
 
         public void BotTurn(Unit currentUnit, Transform transform, Vector2Int position, List<Unit> units)
         {
-            Debug.Log("Ход бота c инициативой - " + currentUnit.Initiative);
+            Debug.Log("Ход бота c инициативой - " + currentUnit._initiative);
 
-            if (currentUnit.IsCombat)
+            if (currentUnit._isCombat)
             {
                 try
                 {
@@ -241,7 +168,7 @@ namespace Scripts.UnitLogic
         {
             foreach (Unit unit in units)
             {
-                if (unit.IsUnion && unit != currentUnit) // Исключаем текущего юнита из поиска
+                if (unit._isUnion && unit != currentUnit) // Исключаем текущего юнита из поиска
                 {
                     return unit;
                 }
@@ -279,7 +206,7 @@ namespace Scripts.UnitLogic
                             _cell.SetUnit(); // Удаляем текущий юнит из текущей клетки
                         }
 
-                        _transform.position = targetCell.Transform.position;
+                        transform.position = targetCell.Transform.position;
                         _cell = targetCell;
                     }
                     // Проверить, успешно ли установлен юнит на клетку
