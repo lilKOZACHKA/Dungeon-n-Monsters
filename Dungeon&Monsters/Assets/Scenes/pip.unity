@@ -411,7 +411,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 412a64c8a54432245a7fd819bf0034ff, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 16
     m_FontStyle: 0
     m_BestFit: 0
@@ -423,7 +423,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u0414\u0440\u0430\u0442\u044C\u0441\u044F"
+  m_Text: "\u0442\u0435\u0441\u0442"
 --- !u!222 &157414023
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -490,7 +490,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 412a64c8a54432245a7fd819bf0034ff, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 16
     m_FontStyle: 0
     m_BestFit: 0
@@ -502,7 +502,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u041F\u0430\u043C\u0430\u0433\u0438\u0442\u0435\n"
+  m_Text: "\u0442\u0435\u0441\u0442\n"
 --- !u!222 &191108698
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -991,7 +991,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 412a64c8a54432245a7fd819bf0034ff, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
@@ -1045,7 +1045,6 @@ GameObject:
   - component: {fileID: 1197964181}
   - component: {fileID: 1197964185}
   - component: {fileID: 1197964186}
-  - component: {fileID: 1197964187}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1146,9 +1145,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 1197964179}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9c321e82ed173f4bb9057dab1d6a0fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d29c4c14330df7419af20f0173b8c3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventText: {fileID: 1186143006}
+  newText:
+  - hils hils hils hills
+  - zzzzzzz
+  - vvvvvv
+  choiceTextsArray1:
+  - z
+  - v
+  - o
+  choiceTextsArray2:
+  - z
+  - v
+  - o
+  choiceTextsArray3:
+  - z
+  - v
+  - o
+  choiceButton1: {fileID: 1998799044}
+  choiceButton2: {fileID: 833586849}
+  choiceButton3: {fileID: 67914853}
 --- !u!114 &1197964186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1161,21 +1180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79d1b574c5be8334594f2666cc037283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1197964187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1197964179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1437d35e5beb19046b4de0f9cb621877, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabToCreate: {fileID: 7137443447611911754, guid: 863393cf381251a4284963b8b71ec823, type: 3}
-  canvas: {fileID: 1197964183}
-  positionInCanvas: {x: -335, y: 0}
 --- !u!1 &1480635510
 GameObject:
   m_ObjectHideFlags: 0
@@ -1318,7 +1322,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 412a64c8a54432245a7fd819bf0034ff, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 16
     m_FontStyle: 0
     m_BestFit: 0
@@ -1330,7 +1334,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u0412\u044B \u0432\u044B\u0434\u0440\u0430\n"
+  m_Text: "\u0442\u0435\u0441\u0442"
 --- !u!222 &1504882730
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1484,7 +1488,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 03072415a1348d74e99e5851f6783664, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 83100a7d62f3f214abdffdd01f0ccebc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1492,7 +1496,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 3.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1998799043
