@@ -4,18 +4,18 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Item
-  - Slot
-  - Interactable
+  - Unit
+  - Area
+  - Cell
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - item
+  - Hero
   - Water
   - UI
-  - ground
-  - Slot
+  - Enemy
+  - 
   - 
   - 
   - 
