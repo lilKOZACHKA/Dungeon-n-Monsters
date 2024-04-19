@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 5321121386603306273}
   - component: {fileID: 5376615618657625313}
   - component: {fileID: 2407428999683073714}
-  - component: {fileID: 7750697654082728731}
+  - component: {fileID: 3461830883489950505}
   m_Layer: 5
   m_Name: rightarm
   m_TagString: Untagged
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7750697654082728731
+--- !u!114 &3461830883489950505
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -236,10 +236,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2186070900249773564}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 655f49cf96f8e174fb2c5d75c8fabf99, type: 3}
+  m_Script: {fileID: 11500000, guid: 18a2bf0ca4a305b4c9744f0d4393dc70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armoryType: 3
+  armoryType: 0
   icon: {fileID: 3305467699752304267}
 --- !u!1 &2803167460228257189
 GameObject:
@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 3886913343906253523}
   - component: {fileID: 2376577163273883153}
   - component: {fileID: 2542910283303528774}
-  - component: {fileID: 1238756619011706498}
+  - component: {fileID: 6945537343298300894}
   m_Layer: 5
   m_Name: legs
   m_TagString: Untagged
@@ -318,7 +318,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1238756619011706498
+--- !u!114 &6945537343298300894
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -327,7 +327,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2803167460228257189}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 655f49cf96f8e174fb2c5d75c8fabf99, type: 3}
+  m_Script: {fileID: 11500000, guid: 18a2bf0ca4a305b4c9744f0d4393dc70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   armoryType: 4
@@ -418,7 +418,7 @@ GameObject:
   - component: {fileID: 6508330740786520413}
   - component: {fileID: 8841609908126146059}
   - component: {fileID: 1375236097496876487}
-  - component: {fileID: 2677399347856466982}
+  - component: {fileID: 6483263736862055762}
   m_Layer: 5
   m_Name: chest
   m_TagString: Untagged
@@ -484,7 +484,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2677399347856466982
+--- !u!114 &6483263736862055762
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -493,7 +493,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3077571049028834187}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 655f49cf96f8e174fb2c5d75c8fabf99, type: 3}
+  m_Script: {fileID: 11500000, guid: 18a2bf0ca4a305b4c9744f0d4393dc70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   armoryType: 1
@@ -545,7 +545,7 @@ GameObject:
   - component: {fileID: 1801431342788302005}
   - component: {fileID: 6446488152301341459}
   - component: {fileID: 3023410022564144530}
-  - component: {fileID: 7358609664260408081}
+  - component: {fileID: 2359408164039682610}
   m_Layer: 5
   m_Name: head
   m_TagString: Untagged
@@ -611,7 +611,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7358609664260408081
+--- !u!114 &2359408164039682610
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -620,7 +620,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8143723019728025652}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 655f49cf96f8e174fb2c5d75c8fabf99, type: 3}
+  m_Script: {fileID: 11500000, guid: 18a2bf0ca4a305b4c9744f0d4393dc70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   armoryType: 0
@@ -712,6 +712,7 @@ GameObject:
   - component: {fileID: 3685099717597270667}
   - component: {fileID: 398566507475812313}
   - component: {fileID: 5016465421857650596}
+  - component: {fileID: -2128393216401882628}
   m_Layer: 5
   m_Name: invenbar
   m_TagString: Untagged
@@ -799,6 +800,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-2128393216401882628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8413897044514411771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a62fe253e80846d44b3448c6d3bb6b82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 11400000, guid: cc65b1ee509bcc547bf85989e812fc6d, type: 2}
+  - {fileID: 11400000, guid: e3bf6ca988789f1439a634268fe92fee, type: 2}
+  - {fileID: 11400000, guid: 87d0fbc8d62ef384dacb0d653c092136, type: 2}
+  - {fileID: 11400000, guid: 4f7e8a8e5303ecf4e93c0757f9b8adb2, type: 2}
+  - {fileID: 11400000, guid: 071ea9bf3adac9d46894e9d2e65907bf, type: 2}
+  - {fileID: 11400000, guid: 0eedcb583d3e2a8499113c160eb3e6a0, type: 2}
 --- !u!1 &8472031100528989563
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,7 +962,7 @@ GameObject:
   - component: {fileID: 5309711724944406588}
   - component: {fileID: 5649440414869595718}
   - component: {fileID: 2487549382724491471}
-  - component: {fileID: 1051380265581367105}
+  - component: {fileID: 6165886213015130453}
   m_Layer: 5
   m_Name: leftharm
   m_TagString: Untagged
@@ -1008,7 +1028,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1051380265581367105
+--- !u!114 &6165886213015130453
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1017,10 +1037,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8676177966044152552}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 655f49cf96f8e174fb2c5d75c8fabf99, type: 3}
+  m_Script: {fileID: 11500000, guid: 18a2bf0ca4a305b4c9744f0d4393dc70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armoryType: 2
+  armoryType: 0
   icon: {fileID: 5921825093190279593}
 --- !u!1 &9090630278559083533
 GameObject:

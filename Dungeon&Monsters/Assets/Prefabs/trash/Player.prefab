@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 3626916397498700004}
   - component: {fileID: 283985300442303255}
   - component: {fileID: 3368428679711720164}
-  - component: {fileID: 4159370149290022929}
-  - component: {fileID: 3143263951545291783}
-  - component: {fileID: 4028147550516731431}
+  - component: {fileID: 2308912450963895974}
+  - component: {fileID: 3499107795534053988}
+  - component: {fileID: 5249919482506584719}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: -2253911629886400664}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13.41, y: -52.5, z: -2.13}
   m_LocalScale: {x: 0.95581, y: 0.7682623, z: 1.383182}
   m_ConstrainProportionsScale: 0
@@ -151,7 +151,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.1529458, y: 0.092261314}
   m_Size: {x: 0.9373655, y: 2.7922292}
   m_Direction: 0
---- !u!114 &4159370149290022929
+--- !u!114 &2308912450963895974
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,11 +160,11 @@ MonoBehaviour:
   m_GameObject: {fileID: -2253911629886400664}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48b5cc3eed68b5445a854865dd15efcb, type: 3}
+  m_Script: {fileID: 11500000, guid: ad437be7ad308dc418cdc8f306e82622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
---- !u!114 &3143263951545291783
+--- !u!114 &3499107795534053988
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,12 +173,12 @@ MonoBehaviour:
   m_GameObject: {fileID: -2253911629886400664}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a84290da096c0584ab061c3018dda2e1, type: 3}
+  m_Script: {fileID: 11500000, guid: a4050da70ea042d4dad85c84f37879fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 0}
   chest: {fileID: 0}
---- !u!114 &4028147550516731431
+--- !u!114 &5249919482506584719
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -187,6 +187,6 @@ MonoBehaviour:
   m_GameObject: {fileID: -2253911629886400664}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58bc5747f14a2e94eacc7d75d0ad75e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 79d4a3fcfbbe17d48bcefdf4d356f22b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
