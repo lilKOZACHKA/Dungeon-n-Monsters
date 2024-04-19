@@ -13,6 +13,11 @@ public class EventWindow : MonoBehaviour
     [SerializeField] private string[] choiceTextsArray3;
 
     private string[][] choiceTexts;
+    private string[][] choiceButton1Label;
+
+    [SerializeField] private string[] choiceButton1Label1;
+    [SerializeField] private string[] choiceButton1Label2;
+    [SerializeField] private string[] choiceButton1Label3;
 
 
     public Button choiceButton1;
@@ -23,6 +28,7 @@ public class EventWindow : MonoBehaviour
 
     private void Start()
     {
+        choiceButton1Label = new string[][] { choiceButton1Label1, choiceButton1Label2, choiceButton1Label3 };
         choiceTexts = new string[][] { choiceTextsArray1, choiceTextsArray2, choiceTextsArray3 };
 
         index = UnityEngine.Random.Range(0, newText.Length);
@@ -42,9 +48,9 @@ public class EventWindow : MonoBehaviour
 
     private void UpdateChoiceButtonTexts(int index)
     {
-        choiceButton1.GetComponentInChildren<Text>().text = choiceTexts[index][0];
-        choiceButton2.GetComponentInChildren<Text>().text = choiceTexts[index][1];
-        choiceButton3.GetComponentInChildren<Text>().text = choiceTexts[index][2];
+        choiceButton1.GetComponentInChildren<Text>().text = choiceButton1Label[index][0];
+        choiceButton2.GetComponentInChildren<Text>().text = choiceButton1Label[index][1];
+        choiceButton3.GetComponentInChildren<Text>().text = choiceButton1Label[index][2];
     }
 
     private void Choice(int choiceIndex)
