@@ -103,4 +103,12 @@ MonoBehaviour:
   _moveColor: {r: 1, g: 1, b: 1, a: 1}
   _attackColor: {r: 1, g: 1, b: 1, a: 1}
   _universalColor: {r: 1, g: 1, b: 1, a: 1}
+  _health: 1
+  _initiative: 0
+  _moveCount: 0
+  _moveCountMax: 3
+  _isCombat: 0
+  _isUnion: 0
+  _isActive: 1
+  _isTrap: 1
   _spacing: 0
